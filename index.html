@@ -1,745 +1,870 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Burger Pepe — Pedidos</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --brand: #e8320a;
-    --brand-dark: #b82500;
-    --bg: #111010;
-    --surface: #1c1b1b;
-    --surface2: #252424;
-    --border: #333;
-    --text: #f0ece8;
-    --muted: #888;
-    --radius: 14px;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Burger Haven — Pedidos</title>
+    <style>
+        :root {
+            --bg-dark: #121212;
+            --card-dark: #1e1e1e;
+            --accent-gold: #ffc107;
+            --accent-green: #25d366;
+            --accent-red: #dc3545;
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+            --border-dark: #2d2d2d;
+            --radius: 12px;
+        }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            box-shadow: none;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-  }
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
 
-  /* HEADER */
-  .header {
-    position: relative;
-    height: 220px;
-    overflow: hidden;
-    display: flex;
-    align-items: flex-end;
-  }
-  .header-bg {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, #1a0800 0%, #3d1200 40%, #1a0800 100%);
-  }
-  .header-bg::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(17,16,16,0.95) 0%, transparent 60%);
-  }
-  .header-pattern {
-    position: absolute;
-    inset: 0;
-    opacity: 0.05;
-    background-image: repeating-linear-gradient(45deg, #fff 0, #fff 1px, transparent 0, transparent 50%);
-    background-size: 20px 20px;
-  }
-  .header-content {
-    position: relative;
-    z-index: 1;
-    padding: 0 20px 24px;
-    width: 100%;
-  }
-  .header-logo {
-    width: 80px;
-    height: 80px;
-    background: var(--brand);
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Bebas Neue', cursive;
-    font-size: 28px;
-    color: white;
-    margin-bottom: 12px;
-    box-shadow: 0 8px 24px rgba(232,50,10,0.4);
-  }
-  .header-name {
-    font-family: 'Bebas Neue', cursive;
-    font-size: 36px;
-    letter-spacing: 1px;
-    line-height: 1;
-  }
-  .header-sub {
-    font-size: 13px;
-    color: var(--muted);
-    margin-top: 4px;
-  }
-  .header-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 20px;
-    padding: 4px 12px;
-    font-size: 12px;
-    color: #8fdf82;
-    margin-top: 8px;
-  }
-  .header-badge::before {
-    content: '';
-    width: 7px; height: 7px;
-    background: #8fdf82;
-    border-radius: 50%;
-    animation: pulse 2s infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
-  }
+        .app-container {
+            width: 100%;
+            max-width: 480px;
+            background-color: var(--bg-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            padding: 15px;
+            padding-bottom: 100px; 
+        }
 
-  /* MAIN */
-  .main { max-width: 480px; margin: 0 auto; padding: 0 16px 100px; }
+        /* --- CABECERA --- */
+        .app-header {
+            background-image: linear-gradient(to bottom, rgba(18,18,18,0.2), rgba(18,18,18,0.85)), 
+                              url('https://fotografias.lasexta.com/clipping/cmsimages01/2023/02/16/E43AA832-F4C2-473C-A3CD-8FFEEF2B344B/imagen-archivo-hamburguesa_98.jpg?crop=5472,3079,x0,y289&width=1900&height=1069&optimize=high&format=webply');
+            background-size: cover;
+            background-position: center 45%;
+            height: 150px;
+            border-radius: var(--radius);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-bottom: 15px;
+            border: 1px solid var(--border-dark);
+        }
 
-  /* SECTION TITLE */
-  .section-title {
-    font-family: 'Bebas Neue', cursive;
-    font-size: 13px;
-    letter-spacing: 3px;
-    color: var(--brand);
-    text-transform: uppercase;
-    padding: 28px 0 14px;
-  }
+        .badge-status {
+            background-color: rgba(37, 211, 102, 0.15);
+            color: var(--accent-green);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-top: 6px;
+            border: 1px solid rgba(37, 211, 102, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+        }
+        .badge-status::before { content: ''; width: 6px; height: 6px; background: var(--accent-green); border-radius: 50%; display: inline-block; }
+        .restaurant-name { font-size: 1.7rem; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; text-shadow: 0 2px 6px rgba(0,0,0,0.9); }
 
-  /* PRODUCT CARD */
-  .product-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    margin-bottom: 12px;
-    overflow: hidden;
-    transition: border-color 0.2s;
-  }
-  .product-card.has-qty {
-    border-color: var(--brand);
-  }
-  .product-top {
-    display: flex;
-    gap: 14px;
-    padding: 16px;
-  }
-  .product-img {
-    width: 90px;
-    height: 90px;
-    border-radius: 10px;
-    object-fit: cover;
-    background: var(--surface2);
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 36px;
-  }
-  .product-info { flex: 1; }
-  .product-name {
-    font-weight: 700;
-    font-size: 15px;
-    line-height: 1.3;
-  }
-  .product-desc {
-    font-size: 12px;
-    color: var(--muted);
-    margin-top: 4px;
-    line-height: 1.5;
-  }
-  .product-price {
-    font-family: 'Bebas Neue', cursive;
-    font-size: 22px;
-    color: var(--brand);
-    margin-top: 8px;
-    letter-spacing: 0.5px;
-  }
-  .product-price span {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-  }
+        /* --- BLOQUES DE SECCIÓN --- */
+        .block-section {
+            background-color: var(--card-dark);
+            border-radius: var(--radius);
+            border: 1px solid var(--border-dark);
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
 
-  /* COUNTER */
-  .counter {
-    display: flex;
-    align-items: center;
-    gap: 0;
-    margin-top: 10px;
-  }
-  .counter-btn {
-    width: 34px; height: 34px;
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    color: var(--text);
-    font-size: 18px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.15s;
-    border-radius: 8px 0 0 8px;
-    line-height: 1;
-  }
-  .counter-btn:last-child { border-radius: 0 8px 8px 0; }
-  .counter-btn:hover { background: var(--brand); border-color: var(--brand); }
-  .counter-num {
-    width: 40px; height: 34px;
-    background: var(--surface2);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 15px;
-  }
+        .block-title {
+            padding: 15px;
+            font-size: 1rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid var(--border-dark);
+            background-color: rgba(255,255,255,0.02);
+        }
 
-  /* OPCIONES */
-  .product-opciones {
-    border-top: 1px solid var(--border);
-    padding: 12px 16px;
-    display: none;
-  }
-  .product-card.has-qty .product-opciones { display: block; }
-  .opciones-title {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 10px;
-  }
-  .opcion-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 8px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.04);
-    cursor: pointer;
-  }
-  .opcion-item:last-child { border-bottom: none; }
-  .opcion-label { font-size: 14px; }
-  .opcion-check {
-    width: 22px; height: 22px;
-    border: 2px solid var(--border);
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.15s;
-  }
-  .opcion-item.selected .opcion-check {
-    background: var(--brand);
-    border-color: var(--brand);
-  }
-  .opcion-item.selected .opcion-check::after {
-    content: '✓';
-    color: white;
-    font-size: 12px;
-    font-weight: 700;
-  }
+        /* --- ACORDEONES --- */
+        .category-trigger {
+            padding: 16px 15px;
+            font-weight: 800;
+            font-size: 1.15rem;
+            letter-spacing: 0.5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            background: linear-gradient(90deg, rgba(37, 211, 102, 0.03) 0%, rgba(0,0,0,0) 100%);
+            color: var(--accent-green);
+            border-bottom: 1px solid var(--border-dark);
+        }
+        .category-trigger .arrow { transition: transform 0.3s; color: var(--accent-green); font-size: 0.9rem; }
+        
+        .category-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+        .category-accordion.active .category-content { max-height: 5000px; transition: max-height 0.4s ease-in; }
+        .category-accordion.active .category-trigger .arrow { transform: rotate(180deg); }
 
-  /* FORM */
-  .form-group { margin-bottom: 14px; }
-  .form-label {
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--muted);
-    display: block;
-    margin-bottom: 6px;
-  }
-  .form-input {
-    width: 100%;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 12px 14px;
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-  .form-input:focus { border-color: var(--brand); }
-  .form-input::placeholder { color: var(--muted); }
+        /* --- TARJETAS DE PRODUCTO --- */
+        .product-card {
+            padding: 15px;
+            border-bottom: 1px solid var(--border-dark);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .product-card:last-child { border-bottom: none; }
+        .product-main { display: flex; gap: 12px; }
+        
+        .product-image { width: 80px; height: 80px; border-radius: 8px; overflow: hidden; flex-shrink: 0; border: 1px solid var(--border-dark); background-color: #fff; }
+        .product-image img { width: 100%; height: 100%; object-fit: contain; }
 
-  textarea.form-input {
-    resize: none;
-    height: 80px;
-  }
+        .product-details { flex-grow: 1; }
+        .product-name { font-size: 1rem; font-weight: bold; margin-bottom: 3px; }
+        .product-desc { font-size: 0.75rem; color: var(--text-muted); line-height: 1.4; margin-bottom: 6px; }
+        .product-price { font-size: 1.05rem; font-weight: bold; color: var(--accent-gold); }
 
-  /* ZONAS */
-  .zonas-grid {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-  .zona-btn {
-    flex: 1;
-    min-width: 90px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 10px 8px;
-    color: var(--text);
-    cursor: pointer;
-    text-align: center;
-    transition: all 0.15s;
-  }
-  .zona-btn .zona-nombre {
-    font-size: 13px;
-    font-weight: 600;
-  }
-  .zona-btn .zona-precio {
-    font-size: 12px;
-    color: var(--muted);
-    margin-top: 2px;
-  }
-  .zona-btn.selected {
-    background: rgba(232,50,10,0.12);
-    border-color: var(--brand);
-  }
-  .zona-btn.selected .zona-nombre { color: var(--brand); }
+        /* --- CONTENEDOR DE SALSAS DINÁMICAS --- */
+        .salsas-dynamic-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .unit-salsa-block {
+            background-color: rgba(255,255,255,0.01);
+            border: 1px solid var(--border-dark);
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .unit-salsa-title {
+            font-size: 0.72rem;
+            color: var(--accent-gold);
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
 
-  /* PAGO */
-  .pago-grid {
-    display: flex;
-    gap: 8px;
-  }
-  .pago-btn {
-    flex: 1;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 12px 8px;
-    color: var(--text);
-    cursor: pointer;
-    text-align: center;
-    font-size: 13px;
-    font-weight: 600;
-    transition: all 0.15s;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-  }
-  .pago-btn .pago-icon { font-size: 22px; }
-  .pago-btn.selected {
-    background: rgba(232,50,10,0.12);
-    border-color: var(--brand);
-    color: var(--brand);
-  }
+        .salsas-grid { display: flex; flex-wrap: wrap; gap: 6px; }
+        .salsa-label {
+            display: flex;
+            align-items: center;
+            background-color: var(--bg-dark);
+            border: 1px solid var(--border-dark);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.72rem;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+        .salsa-label input { display: none; }
+        .salsa-label:has(input:checked) {
+            border-color: var(--accent-green);
+            background-color: rgba(37, 211, 102, 0.1);
+            color: var(--text-main);
+        }
 
-  /* RESUMEN */
-  .resumen {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    overflow: hidden;
-  }
-  .resumen-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 16px;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-    font-size: 14px;
-  }
-  .resumen-row:last-child { border-bottom: none; }
-  .resumen-row.total {
-    font-weight: 700;
-    font-size: 16px;
-    background: rgba(232,50,10,0.08);
-  }
-  .resumen-row.total .resumen-val { color: var(--brand); font-size: 20px; font-family: 'Bebas Neue', cursive; letter-spacing: 0.5px; }
-  .resumen-label { color: var(--muted); }
-  .resumen-val { font-weight: 600; }
+        .product-action-row { display: flex; justify-content: space-between; align-items: center; margin-top: 4px; }
+        
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid var(--border-dark);
+            border-radius: 20px;
+            padding: 3px 10px;
+            background-color: var(--bg-dark);
+        }
+        .qty-btn { background: none; border: none; color: var(--text-main); font-size: 1.1rem; font-weight: bold; cursor: pointer; width: 20px;}
+        .qty-val { font-size: 0.9rem; font-weight: bold; min-width: 15px; text-align: center; }
 
-  /* BOTÓN CONFIRMAR */
-  .btn-confirmar {
-    width: 100%;
-    background: var(--brand);
-    color: white;
-    border: none;
-    border-radius: 14px;
-    padding: 18px;
-    font-family: 'Bebas Neue', cursive;
-    font-size: 20px;
-    letter-spacing: 2px;
-    cursor: pointer;
-    margin-top: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    transition: background 0.2s, transform 0.1s;
-    box-shadow: 0 8px 24px rgba(232,50,10,0.35);
-  }
-  .btn-confirmar:hover { background: var(--brand-dark); }
-  .btn-confirmar:active { transform: scale(0.98); }
-  .btn-confirmar:disabled {
-    background: var(--surface2);
-    color: var(--muted);
-    box-shadow: none;
-    cursor: not-allowed;
-  }
-  .btn-confirmar svg { width: 22px; height: 22px; fill: white; }
+        .btn-add-item {
+            background-color: var(--text-main);
+            color: var(--bg-dark);
+            border: 1px solid var(--text-main);
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
 
-  /* EMPTY STATE */
-  .empty-carrito {
-    text-align: center;
-    padding: 24px;
-    color: var(--muted);
-    font-size: 14px;
-  }
+        /* --- FORMULARIOS --- */
+        .form-padding { padding: 15px; }
+        .input-group { margin-bottom: 12px; }
+        .input-group label { display: block; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 5px; font-weight: bold; text-transform: uppercase;}
+        .input-group input, .input-group select, .input-group textarea {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid var(--border-dark);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            outline: none;
+        }
+        #cash-change-box {
+            background-color: rgba(255, 193, 7, 0.05);
+            border: 1px dashed var(--accent-gold);
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 10px;
+            display: none;
+        }
 
-  /* TOAST */
-  .toast {
-    position: fixed;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%) translateY(80px);
-    background: #1e3a1e;
-    border: 1px solid #4caf50;
-    color: #8fdf82;
-    padding: 12px 20px;
-    border-radius: 30px;
-    font-size: 14px;
-    font-weight: 600;
-    z-index: 999;
-    transition: transform 0.3s ease;
-    white-space: nowrap;
-  }
-  .toast.show { transform: translateX(-50%) translateY(0); }
-</style>
+        /* --- MÉTODOS DE PAGO --- */
+        .payment-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 15px; }
+        .payment-option {
+            border: 1px solid var(--border-dark);
+            border-radius: 10px;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            background-color: var(--bg-dark);
+        }
+        .payment-option.selected { border-color: var(--accent-green); background-color: rgba(37, 211, 102, 0.05); }
+        .payment-icon { width: 24px; height: 24px; display: flex; align-items: center; }
+        .payment-icon svg { width: 100%; height: 100%; }
+        .payment-name { font-size: 0.85rem; font-weight: bold; }
+
+        /* --- RESUMEN / CARRITO --- */
+        .cart-padding { padding: 15px; }
+        .cart-empty { font-size: 0.85rem; color: var(--text-muted); text-align: center; padding: 10px 0; }
+        .cart-item-row { display: flex; justify-content: space-between; font-size: 0.85rem; padding: 10px 0; border-bottom: 1px dashed var(--border-dark); }
+        .cart-item-salsas { font-size: 0.75rem; color: var(--text-muted); display: block; margin-top: 2px; }
+        
+        .summary-row { display: flex; justify-content: space-between; padding: 8px 0; font-size: 0.85rem; color: var(--text-muted); }
+        .summary-total {
+            font-weight: bold;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            border-top: 1px solid var(--border-dark);
+            padding-top: 12px;
+            margin-top: 8px;
+        }
+        .total-amount { font-size: 1.1rem; color: var(--accent-gold); }
+
+        /* --- BOTÓN FLOTANTE --- */
+        .btn-floating-container {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 480px;
+            padding: 15px;
+            background: linear-gradient(to top, rgba(12,12,12,1) 80%, rgba(12,12,12,0));
+            z-index: 999;
+        }
+        .btn-confirm-order {
+            background-color: var(--accent-green);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            width: 100%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+    </style>
 </head>
 <body>
 
-<!-- ======= CONFIGURACIÓN DEL RESTAURANTE ======= -->
-<script>
-const CONFIG = {
-  nombre: "Burger Pepe",
-  slogan: "Las mejores hamburguesas de Miraflores",
-  whatsapp: "51999999999",   // ← número con código de país, sin + ni espacios
-  colores: {
-    brand: "#e8320a"
-  },
-  zonas: [
-    { id: "z1", nombre: "Zona 1 — Cercano",  precio: 3 },
-    { id: "z2", nombre: "Zona 2 — Medio",    precio: 5 },
-    { id: "z3", nombre: "Zona 3 — Lejano",   precio: 8 },
-  ],
-  pagos: ["Yape", "Tarjeta", "Efectivo"],
-  productos: [
-    {
-      id: "p1",
-      nombre: "Hamburguesa Clásica",
-      descripcion: "Pan brioche, carne 180g, lechuga, tomate, cebolla caramelizada",
-      precio: 35,
-      emoji: "🍔",
-      opciones: ["Sin cebolla", "Extra queso (+S/3)", "Sin pepinillo"]
-    },
-    {
-      id: "p2",
-      nombre: "Doble Bacon",
-      descripcion: "Doble carne, bacon crocante, queso cheddar, salsa especial",
-      precio: 49,
-      emoji: "🥓",
-      opciones: ["Término medio", "Bien cocido", "Sin bacon"]
-    },
-    {
-      id: "p3",
-      nombre: "Papas Fritas",
-      descripcion: "Papas cortadas a mano, sal marina, crujientes",
-      precio: 15,
-      emoji: "🍟",
-      opciones: ["Con ketchup", "Con mayonesa", "Con ambas"]
-    },
-    {
-      id: "p4",
-      nombre: "Gaseosa Personal",
-      descripcion: "Coca-Cola, Inca Kola o Sprite — 500ml",
-      precio: 8,
-      emoji: "🥤",
-      opciones: ["Coca-Cola", "Inca Kola", "Sprite"]
-    }
-  ]
-};
-</script>
-<!-- ======= FIN CONFIGURACIÓN ======= -->
+<div class="app-container">
+    
+    <div class="app-header">
+        <div class="restaurant-name">Burger Haven</div>
+        <div class="badge-status">Abierto ahora</div>
+    </div>
 
-<!-- HEADER -->
-<div class="header">
-  <div class="header-bg"></div>
-  <div class="header-pattern"></div>
-  <div class="header-content">
-    <div class="header-logo" id="headerLogo">BP</div>
-    <div class="header-name" id="headerNombre"></div>
-    <div class="header-sub" id="headerSlogan"></div>
-    <div class="header-badge">Abierto ahora</div>
-  </div>
-</div>
+    <div class="block-section">
+        <div class="block-title">🍽️ Elige tus productos</div>
+        
+        <div class="category-accordion active" id="cate-burgers">
+            <div class="category-trigger" onclick="toggleAccordion('cate-burgers')">
+                <span>Hamburguesas</span>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="category-content">
+                
+                <div class="product-card" id="p-h-especial">
+                    <div class="product-main">
+                        <div class="product-image"><img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=200"></div>
+                        <div class="product-details">
+                            <div class="product-name">Hamburguesa Especial</div>
+                            <div class="product-desc">Carne premium, queso cheddar, tocino ahumado, huevo frito.</div>
+                            <div class="product-price">S/ 35.00</div>
+                        </div>
+                    </div>
+                    <div class="salsas-dynamic-container" id="salsas-container-p-h-especial"></div>
+                    <div class="product-action-row">
+                        <div class="quantity-control">
+                            <button class="qty-btn" onclick="changeQty('p-h-especial', -1, 'Hamburguesa Especial')">−</button>
+                            <span class="qty-val" id="p-h-especial-qty">1</span>
+                            <button class="qty-btn" onclick="changeQty('p-h-especial', 1, 'Hamburguesa Especial')">+</button>
+                        </div>
+                        <button class="btn-add-item" onclick="addToCart('Hamburguesa Especial', 35.00, 'p-h-especial', false)">Agregar</button>
+                    </div>
+                </div>
 
-<div class="main">
+                <div class="product-card" id="p-h-royal">
+                    <div class="product-main">
+                        <div class="product-image"><img src="https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=200"></div>
+                        <div class="product-details">
+                            <div class="product-name">Hamburguesa Royal</div>
+                            <div class="product-desc">Carne de res, huevo frito, queso fundido y crujientes papas al hilo.</div>
+                            <div class="product-price">S/ 28.00</div>
+                        </div>
+                    </div>
+                    <div class="salsas-dynamic-container" id="salsas-container-p-h-royal"></div>
+                    <div class="product-action-row">
+                        <div class="quantity-control">
+                            <button class="qty-btn" onclick="changeQty('p-h-royal', -1, 'Hamburguesa Royal')">−</button>
+                            <span class="qty-val" id="p-h-royal-qty">1</span>
+                            <button class="qty-btn" onclick="changeQty('p-h-royal', 1, 'Hamburguesa Royal')">+</button>
+                        </div>
+                        <button class="btn-add-item" onclick="addToCart('Hamburguesa Royal', 28.00, 'p-h-royal', false)">Agregar</button>
+                    </div>
+                </div>
 
-  <!-- PRODUCTOS -->
-  <div class="section-title">🍽 Elige tus productos</div>
-  <div id="productosContainer"></div>
+                <div class="product-card" id="p-h-hawaiana">
+                    <div class="product-main">
+                        <div class="product-image"><img src="https://images.unsplash.com/photo-1586190848861-99aa4a171e90?q=80&w=200"></div>
+                        <div class="product-details">
+                            <div class="product-name">Hamburguesa Hawaiana</div>
+                            <div class="product-desc">Fusión tropical con carne de res, rodaja de piña dorada, queso y jamón.</div>
+                            <div class="product-price">S/ 30.00</div>
+                        </div>
+                    </div>
+                    <div class="salsas-dynamic-container" id="salsas-container-p-h-hawaiana"></div>
+                    <div class="product-action-row">
+                        <div class="quantity-control">
+                            <button class="qty-btn" onclick="changeQty('p-h-hawaiana', -1, 'Hamburguesa Hawaiana')">−</button>
+                            <span class="qty-val" id="p-h-hawaiana-qty">1</span>
+                            <button class="qty-btn" onclick="changeQty('p-h-hawaiana', 1, 'Hamburguesa Hawaiana')">+</button>
+                        </div>
+                        <button class="btn-add-item" onclick="addToCart('Hamburguesa Hawaiana', 30.00, 'p-h-hawaiana', false)">Agregar</button>
+                    </div>
+                </div>
 
-  <!-- DATOS DEL CLIENTE -->
-  <div class="section-title">👤 Tus datos</div>
-  <div class="form-group">
-    <label class="form-label">Nombre completo</label>
-    <input class="form-input" type="text" id="clienteNombre" placeholder="Ej: Juan Pérez">
-  </div>
-  <div class="form-group">
-    <label class="form-label">Teléfono</label>
-    <input class="form-input" type="tel" id="clienteTelefono" placeholder="Ej: 987 654 321">
-  </div>
-  <div class="form-group">
-    <label class="form-label">Dirección de entrega</label>
-    <input class="form-input" type="text" id="clienteDireccion" placeholder="Calle, número, referencia">
-  </div>
-  <div class="form-group">
-    <label class="form-label">Zona de delivery</label>
-    <div class="zonas-grid" id="zonasContainer"></div>
-  </div>
-  <div class="form-group">
-    <label class="form-label">Notas adicionales</label>
-    <textarea class="form-input" id="clienteNotas" placeholder="Ej: tocar el timbre, no picante, etc."></textarea>
-  </div>
-
-  <!-- MÉTODO DE PAGO -->
-  <div class="section-title">💳 Método de pago</div>
-  <div class="pago-grid" id="pagoContainer"></div>
-
-  <!-- RESUMEN -->
-  <div class="section-title">🧾 Resumen del pedido</div>
-  <div class="resumen" id="resumenContainer">
-    <div class="empty-carrito">Aún no has agregado productos</div>
-  </div>
-
-  <!-- BOTÓN -->
-  <button class="btn-confirmar" id="btnConfirmar" disabled>
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.553 4.122 1.522 5.855L.057 23.882l6.183-1.622A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.007-1.371l-.36-.214-3.726.977.995-3.634-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
-    Enviar pedido por WhatsApp
-  </button>
-
-</div>
-
-<div class="toast" id="toast"></div>
-
-<script>
-// Estado de la app
-const state = {
-  cantidades: {},     // { productoId: numero }
-  opciones: {},       // { productoId: [opcion1, opcion2] }
-  zona: null,
-  pago: null,
-};
-
-// Inicializar
-document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('headerNombre').textContent = CONFIG.nombre;
-  document.getElementById('headerSlogan').textContent = CONFIG.slogan;
-  document.getElementById('headerLogo').textContent = CONFIG.nombre.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
-
-  renderProductos();
-  renderZonas();
-  renderPagos();
-});
-
-function renderProductos() {
-  const container = document.getElementById('productosContainer');
-  container.innerHTML = CONFIG.productos.map(p => `
-    <div class="product-card" id="card-${p.id}">
-      <div class="product-top">
-        <div class="product-img">${p.emoji}</div>
-        <div class="product-info">
-          <div class="product-name">${p.nombre}</div>
-          <div class="product-desc">${p.descripcion}</div>
-          <div class="product-price"><span>S/</span> ${p.precio.toFixed(2)}</div>
-          <div class="counter">
-            <button class="counter-btn" onclick="cambiarCantidad('${p.id}', -1)">−</button>
-            <div class="counter-num" id="qty-${p.id}">0</div>
-            <button class="counter-btn" onclick="cambiarCantidad('${p.id}', 1)">+</button>
-          </div>
+            </div>
         </div>
-      </div>
-      ${p.opciones && p.opciones.length ? `
-      <div class="product-opciones" id="opciones-${p.id}">
-        <div class="opciones-title">Personaliza</div>
-        ${p.opciones.map(op => `
-          <div class="opcion-item" id="op-${p.id}-${op.replace(/\s+/g,'-')}" onclick="toggleOpcion('${p.id}','${op}')">
-            <span class="opcion-label">${op}</span>
-            <div class="opcion-check"></div>
-          </div>
-        `).join('')}
-      </div>` : ''}
+
+        <div class="category-accordion" id="cate-salchis">
+            <div class="category-trigger" onclick="toggleAccordion('cate-salchis')">
+                <span>Salchipapas</span>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="category-content">
+                
+                <div class="product-card" id="p-s-original">
+                    <div class="product-main">
+                        <div class="product-image"><img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?q=80&w=200"></div>
+                        <div class="product-details">
+                            <div class="product-name">Salchipapa Original</div>
+                            <div class="product-desc">Papas fritas crujientes con hot dog clásico en rodajas. Simplemente perfecta.</div>
+                            <div class="product-price">S/ 18.00</div>
+                        </div>
+                    </div>
+                    <div class="salsas-dynamic-container" id="salsas-container-p-s-original"></div>
+                    <div class="product-action-row">
+                        <div class="quantity-control">
+                            <button class="qty-btn" onclick="changeQty('p-s-original', -1, 'Salchipapa Original')">−</button>
+                            <span class="qty-val" id="p-s-original-qty">1</span>
+                            <button class="qty-btn" onclick="changeQty('p-s-original', 1, 'Salchipapa Original')">+</button>
+                        </div>
+                        <button class="btn-add-item" onclick="addToCart('Salchipapa Original', 18.00, 'p-s-original', false)">Agregar</button>
+                    </div>
+                </div>
+
+                <div class="product-card" id="p-s-especial">
+                    <div class="product-main">
+                        <div class="product-image"><img src="https://images.unsplash.com/photo-1623653387945-2fd25214f8fc?q=80&w=200"></div>
+                        <div class="product-details">
+                            <div class="product-name">Salchipapa Especial</div>
+                            <div class="product-desc">La base clásica que además incluye un tierno y jugoso filete de pollo encima.</div>
+                            <div class="product-price">S/ 24.00</div>
+                        </div>
+                    </div>
+                    <div class="salsas-dynamic-container" id="salsas-container-p-s-especial"></div>
+                    <div class="product-action-row">
+                        <div class="quantity-control">
+                            <button class="qty-btn" onclick="changeQty('p-s-especial', -1, 'Salchipapa Especial')">−</button>
+                            <span class="qty-val" id="p-s-especial-qty">1</span>
+                            <button class="qty-btn" onclick="changeQty('p-s-especial', 1, 'Salchipapa Especial')">+</button>
+                        </div>
+                        <button class="btn-add-item" onclick="addToCart('Salchipapa Especial', 24.00, 'p-s-especial', false)">Agregar</button>
+                    </div>
+                </div>
+
+                <div class="product-card" id="p-s-achorada">
+                    <div class="product-main">
+                        <div class="product-image"><img src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=200"></div>
+                        <div class="product-details">
+                            <div class="product-name">Salchipapa Achorada</div>
+                            <div class="product-desc">Para los bravos: Papas, hot dog, filete de pollo y chorizo parrillero.</div>
+                            <div class="product-price">S/ 28.00</div>
+                        </div>
+                    </div>
+                    <div class="salsas-dynamic-container" id="salsas-container-p-s-achorada"></div>
+                    <div class="product-action-row">
+                        <div class="quantity-control">
+                            <button class="qty-btn" onclick="changeQty('p-s-achorada', -1, 'Salchipapa Achorada')">−</button>
+                            <span class="qty-val" id="p-s-achorada-qty">1</span>
+                            <button class="qty-btn" onclick="changeQty('p-s-achorada', 1, 'Salchipapa Achorada')">+</button>
+                        </div>
+                        <button class="btn-add-item" onclick="addToCart('Salchipapa Achorada', 28.00, 'p-s-achorada', false)">Agregar</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="category-accordion" id="cate-bebidas">
+            <div class="category-trigger" onclick="toggleAccordion('cate-bebidas')">
+                <span>Bebidas</span>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="category-content">
+                
+                <div class="product-card" id="p-b-coca-500">
+                    <div class="product-main">
+                        <div class="product-image"><img src="https://www.papajohns.com.pe/media/catalog/product/1/4/14935.png?optimize=medium&bg-color=255,255,255&fit=bounds&height=700&width=700&canvas=700:700&format=jpeg" alt="Coca Cola 500ml"></div>
+                        <div class="product-details">
+                            <div class="product-name">Coca-Cola 500ml</div>
+                            <div class="product-desc">Gaseosa personal en botella.</div>
+                            <div class="product-price">S/ 4.50</div>
+                        </div>
+                    </div>
+                    <div class="product-action-row">
+                        <div class="quantity-control">
+                            <button class="qty-btn" onclick="changeQty('p-b-coca-500', -1, '')">−</button>
+                            <span class="qty-val" id="p-b-coca-500-qty">1</span>
+                            <button class="qty-btn" onclick="changeQty('p-b-coca-500', 1, '')">+</button>
+                        </div>
+                        <button class="btn-add-item" onclick="addToCart('Coca-Cola 500ml', 4.50, 'p-b-coca-500', true)">Agregar</button>
+                    </div>
+                </div>
+
+                <div class="product-card" id="p-b-inca-500">
+                    <div class="product-main">
+                        <div class="product-image"><img src="https://www.papajohns.com.pe/media/catalog/product/1/4/14938.png?optimize=medium&bg-color=255,255,255&fit=bounds&height=700&width=700&canvas=700:700&format=jpeg" alt="Inca Kola 500ml"></div>
+                        <div class="product-details">
+                            <div class="product-name">Inca Kola 500ml</div>
+                            <div class="product-desc">Gaseosa personal de sabor nacional.</div>
+                            <div class="product-price">S/ 4.50</div>
+                        </div>
+                    </div>
+                    <div class="product-action-row">
+                        <div class="quantity-control">
+                            <button class="qty-btn" onclick="changeQty('p-b-inca-500', -1, '')">−</button>
+                            <span class="qty-val" id="p-b-inca-500-qty">1</span>
+                            <button class="qty-btn" onclick="changeQty('p-b-inca-500', 1, '')">+</button>
+                        </div>
+                        <button class="btn-add-item" onclick="addToCart('Inca Kola 500ml', 4.50, 'p-b-inca-500', true)">Agregar</button>
+                    </div>
+                </div>
+
+                <div class="product-card" id="p-b-coca-15">
+                    <div class="product-main">
+                        <div class="product-image"><img src="https://www.papajohns.com.pe/media/catalog/product/1/4/14937.png?optimize=medium&bg-color=255,255,255&fit=bounds&height=700&width=700&canvas=700:700&format=jpeg" alt="Coca-Cola 1.5L"></div>
+                        <div class="product-details">
+                            <div class="product-name">Coca-Cola 1.5 Litros</div>
+                            <div class="product-desc">Botella mediana ideal para compartir.</div>
+                            <div class="product-price">S/ 9.00</div>
+                        </div>
+                    </div>
+                    <div class="product-action-row">
+                        <div class="quantity-control">
+                            <button class="qty-btn" onclick="changeQty('p-b-coca-15', -1, '')">−</button>
+                            <span class="qty-val" id="p-b-coca-15-qty">1</span>
+                            <button class="qty-btn" onclick="changeQty('p-b-coca-15', 1, '')">+</button>
+                        </div>
+                        <button class="btn-add-item" onclick="addToCart('Coca-Cola 1.5L', 9.00, 'p-b-coca-15', true)">Agregar</button>
+                    </div>
+                </div>
+
+                <div class="product-card" id="p-b-inca-15">
+                    <div class="product-main">
+                        <div class="product-image"><img src="https://www.papajohns.com.pe/media/catalog/product/1/4/14940_1.png?optimize=medium&bg-color=255,255,255&fit=bounds&height=700&width=700&canvas=700:700&format=jpeg" alt="Inca Kola 1.5L"></div>
+                        <div class="product-details">
+                            <div class="product-name">Inca Kola 1.5 Litros</div>
+                            <div class="product-desc">La combinación perfecta para tu combo.</div>
+                            <div class="product-price">S/ 9.00</div>
+                        </div>
+                    </div>
+                    <div class="product-action-row">
+                        <div class="quantity-control">
+                            <button class="qty-btn" onclick="changeQty('p-b-inca-15', -1, '')">−</button>
+                            <span class="qty-val" id="p-b-inca-15-qty">1</span>
+                            <button class="qty-btn" onclick="changeQty('p-b-inca-15', 1, '')">+</button>
+                        </div>
+                        <button class="btn-add-item" onclick="addToCart('Inca Kola 1.5L', 9.00, 'p-b-inca-15', true)">Agregar</button>
+                    </div>
+                </div>
+
+                <div class="product-card" id="p-b-chicha-15">
+                    <div class="product-main">
+                        <div class="product-image"><img src="https://api.pardoschicken.pe/images/resource/products/fadf94c0-637e-11ee-a192-dd010773e877" alt="Chicha Morada 1.5L"></div>
+                        <div class="product-details">
+                            <div class="product-name">Chicha Morada Familiar 1.5L</div>
+                            <div class="product-desc">Preparada tradicional de la casa con maíz morado, piña y limón.</div>
+                            <div class="product-price">S/ 12.00</div>
+                        </div>
+                    </div>
+                    <div class="product-action-row">
+                        <div class="quantity-control">
+                            <button class="qty-btn" onclick="changeQty('p-b-chicha-15', -1, '')">−</button>
+                            <span class="qty-val" id="p-b-chicha-15-qty">1</span>
+                            <button class="qty-btn" onclick="changeQty('p-b-chicha-15', 1, '')">+</button>
+                        </div>
+                        <button class="btn-add-item" onclick="addToCart('Chicha Morada 1.5L', 12.00, 'p-b-chicha-15', true)">Agregar</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
     </div>
-  `).join('');
-}
 
-function cambiarCantidad(id, delta) {
-  const actual = state.cantidades[id] || 0;
-  const nueva = Math.max(0, actual + delta);
-  state.cantidades[id] = nueva;
-  document.getElementById('qty-' + id).textContent = nueva;
-  const card = document.getElementById('card-' + id);
-  card.classList.toggle('has-qty', nueva > 0);
-  if (nueva === 0) state.opciones[id] = [];
-  actualizarResumen();
-}
-
-function toggleOpcion(productoId, opcion) {
-  if (!state.opciones[productoId]) state.opciones[productoId] = [];
-  const arr = state.opciones[productoId];
-  const idx = arr.indexOf(opcion);
-  if (idx >= 0) arr.splice(idx, 1);
-  else arr.push(opcion);
-  const elId = 'op-' + productoId + '-' + opcion.replace(/\s+/g, '-');
-  document.getElementById(elId).classList.toggle('selected', arr.includes(opcion));
-}
-
-function renderZonas() {
-  const container = document.getElementById('zonasContainer');
-  container.innerHTML = CONFIG.zonas.map(z => `
-    <div class="zona-btn" id="zona-${z.id}" onclick="seleccionarZona('${z.id}')">
-      <div class="zona-nombre">${z.nombre}</div>
-      <div class="zona-precio">S/ ${z.precio.toFixed(2)}</div>
+    <div class="block-section">
+        <div class="block-title">👤 Tus datos</div>
+        <div class="form-padding">
+            <div class="input-group">
+                <label>Nombre completo</label>
+                <input type="text" id="client-name" placeholder="Ej. Juan Pérez">
+            </div>
+            <div class="input-group">
+                <label>Teléfono</label>
+                <input type="tel" id="client-phone" placeholder="Ej. 987654321">
+            </div>
+            <div class="input-group">
+                <label>Dirección de entrega</label>
+                <input type="text" id="client-address" placeholder="Ej. Av. Universitaria 1420">
+            </div>
+            <div class="input-group">
+                <label>Zona de delivery</label>
+                <select id="delivery-zone" onchange="renderCart()">
+                    <option value="3.00" data-name="Zona 1: San Miguel" selected>Zona 1 (San Miguel) - S/ 3.00</option>
+                    <option value="5.00" data-name="Zona 2: Magdalena">Zona 2 (Magdalena) - S/ 5.00</option>
+                    <option value="0.00" data-name="Recojo en Local">Recojo en Local - S/ 0.00</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Notas adicionales</label>
+                <textarea id="client-notes" rows="2" placeholder="Ej. Traer gaseosas sin helar, tocar timbre de metal..."></textarea>
+            </div>
+        </div>
     </div>
-  `).join('');
-}
 
-function seleccionarZona(id) {
-  state.zona = id;
-  document.querySelectorAll('.zona-btn').forEach(b => b.classList.remove('selected'));
-  document.getElementById('zona-' + id).classList.add('selected');
-  actualizarResumen();
-}
-
-const pagoIconos = { 'Yape': '💜', 'Tarjeta': '💳', 'Efectivo': '💵' };
-function renderPagos() {
-  const container = document.getElementById('pagoContainer');
-  container.innerHTML = CONFIG.pagos.map(p => `
-    <div class="pago-btn" id="pago-${p}" onclick="seleccionarPago('${p}')">
-      <span class="pago-icon">${pagoIconos[p] || '💰'}</span>
-      ${p}
+    <div class="block-section">
+        <div class="block-title">💳 Método de pago</div>
+        . . .
+        <div class="payment-grid">
+            <div class="payment-option selected" data-method="Yape" onclick="selectPayment(this, 'Yape')">
+                <div class="payment-icon">
+                    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="40" height="40" rx="8" fill="#742384"/><path d="M26 12h-3.5l-3.5 6.5-3.5-6.5H12l5.5 9.5V28h3v-6.5z" fill="#00D2C2"/></svg>
+                </div>
+                <span class="payment-name">Yape</span>
+            </div>
+            <div class="payment-option" data-method="Plin" onclick="selectPayment(this, 'Plin')">
+                <div class="payment-icon">
+                    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="40" height="40" rx="8" fill="#FF5E00"/><circle cx="20" cy="20" r="10" fill="#FFF"/><path d="M16 15h3a3 3 0 110 6h-3v4h-2zm3 4a1 1 0 100-2h-1v2z" fill="#FF5E00"/><path d="M22 15h2v10h-2z" fill="#FF5E00"/></svg>
+                </div>
+                <span class="payment-name">Plin</span>
+            </div>
+            <div class="payment-option" data-method="Tarjeta" onclick="selectPayment(this, 'Tarjeta')">
+                <div class="payment-icon" style="font-size: 1.2rem;">💳</div>
+                <span class="payment-name">Tarjeta</span>
+            </div>
+            <div class="payment-option" data-method="Efectivo" onclick="selectPayment(this, 'Efectivo')">
+                <div class="payment-icon" style="font-size: 1.2rem;">💵</div>
+                <span class="payment-name">Efectivo</span>
+            </div>
+        </div>
+        
+        <div style="padding: 0 15px 15px 15px;">
+            <div id="cash-change-box">
+                <div class="input-group">
+                    <label style="color: var(--accent-gold);">¿Con cuánto vas a pagar?</label>
+                    <input type="number" id="cash-amount" placeholder="Ej: 50 o 100" min="0">
+                </div>
+            </div>
+        </div>
     </div>
-  `).join('');
-}
 
-function seleccionarPago(p) {
-  state.pago = p;
-  document.querySelectorAll('.pago-btn').forEach(b => b.classList.remove('selected'));
-  document.getElementById('pago-' + p).classList.add('selected');
-  actualizarResumen();
-}
+    <div class="block-section">
+        <div class="block-title">🧾 Resumen del pedido</div>
+        <div class="cart-padding">
+            <div id="cart-items-container">
+                <div class="cart-empty">Aún no has agregado productos</div>
+            </div>
+            
+            <div class="summary-row" style="margin-top: 10px;">
+                <span id="summary-deliv-label">Delivery (Zona 1: San Miguel)</span>
+                <span id="summary-deliv-price">S/ 3.00</span>
+            </div>
+            
+            <div class="summary-row summary-total">
+                <span>TOTAL:</span>
+                <span class="total-amount">S/ <span id="total-val">3.00</span></span>
+            </div>
+        </div>
+    </div>
 
-function getProductosSeleccionados() {
-  return CONFIG.productos.filter(p => (state.cantidades[p.id] || 0) > 0);
-}
+    <div class="btn-floating-container">
+        <button class="btn-confirm-order" onclick="sendOrder()">
+            Enviar pedido por WhatsApp
+        </button>
+    </div>
 
-function actualizarResumen() {
-  const prods = getProductosSeleccionados();
-  const container = document.getElementById('resumenContainer');
+</div>
 
-  if (prods.length === 0) {
-    container.innerHTML = '<div class="empty-carrito">Aún no has agregado productos</div>';
-    document.getElementById('btnConfirmar').disabled = true;
-    return;
-  }
+<script>
+    let cart = [];
+    let selectedPayment = "Yape";
+    let productQuantities = {};
 
-  const zona = CONFIG.zonas.find(z => z.id === state.zona);
-  const delivery = zona ? zona.precio : 0;
-  const subtotal = prods.reduce((s, p) => s + p.precio * state.cantidades[p.id], 0);
-  const total = subtotal + delivery;
+    const SALSAS_DISPONIBLES = ["Ketchup", "Mayonesa", "Tártara", "Aceituna", "Ají"];
+    const PRODUCTOS_CON_SALSAS = ['p-h-especial', 'p-h-royal', 'p-h-hawaiana', 'p-s-original', 'p-s-especial', 'p-s-achorada'];
 
-  let rows = prods.map(p => {
-    const qty = state.cantidades[p.id];
-    const ops = state.opciones[p.id];
-    return `
-      <div class="resumen-row">
-        <span class="resumen-label">${qty}x ${p.nombre}${ops && ops.length ? '<br><small style="color:#666">' + ops.join(', ') + '</small>' : ''}</span>
-        <span class="resumen-val">S/ ${(p.precio * qty).toFixed(2)}</span>
-      </div>
-    `;
-  }).join('');
+    function toggleAccordion(id) {
+        document.getElementById(id).classList.toggle('active');
+    }
 
-  rows += `<div class="resumen-row"><span class="resumen-label">Delivery ${zona ? '— ' + zona.nombre : ''}</span><span class="resumen-val">S/ ${delivery.toFixed(2)}</span></div>`;
-  rows += `<div class="resumen-row total"><span>TOTAL</span><span class="resumen-val">S/ ${total.toFixed(2)}</span></div>`;
+    // === CONDICIONAL INTELIGENTE IMPLEMENTADA AQUÍ ===
+    function generateSalsaBlocks(productId, currentQty, productName) {
+        const container = document.getElementById(`salsas-container-${productId}`);
+        if(!container) return; 
+        container.innerHTML = '';
 
-  container.innerHTML = rows;
+        for (let i = 1; i <= currentQty; i++) {
+            let gridHTML = '';
+            SALSAS_DISPONIBLES.forEach(salsa => {
+                let isChecked = (salsa === "Ketchup" || salsa === "Mayonesa") ? 'checked' : '';
+                gridHTML += `
+                    <label class="salsa-label">
+                        <input type="checkbox" name="salsas-${productId}-u${i}" value="${salsa}" ${isChecked}> 
+                        ${salsa}
+                    </label>
+                `;
+            });
 
-  const listo = prods.length > 0 && state.zona && state.pago;
-  document.getElementById('btnConfirmar').disabled = !listo;
-}
+            // Condicional: si la cantidad es 1, omitimos el número correlativo de unidad
+            let blockTitleText = currentQty === 1 
+                ? `Salsas para ${productName}` 
+                : `Salsas para ${productName} 0${i}`;
 
-document.getElementById('btnConfirmar').addEventListener('click', () => {
-  const nombre = document.getElementById('clienteNombre').value.trim();
-  const telefono = document.getElementById('clienteTelefono').value.trim();
-  const direccion = document.getElementById('clienteDireccion').value.trim();
-  const notas = document.getElementById('clienteNotas').value.trim();
+            container.innerHTML += `
+                <div class="unit-salsa-block">
+                    <div class="unit-salsa-title">${blockTitleText}</div>
+                    <div class="salsas-grid">${gridHTML}</div>
+                </div>
+            `;
+        }
+    }
 
-  if (!nombre || !telefono || !direccion) {
-    mostrarToast('⚠️ Completa tu nombre, teléfono y dirección');
-    return;
-  }
+    function changeQty(productId, amount, productName) {
+        if (!productQuantities[productId]) productQuantities[productId] = 1;
+        productQuantities[productId] += amount;
+        if (productQuantities[productId] < 1) productQuantities[productId] = 1;
+        
+        document.getElementById(`${productId}-qty`).innerText = productQuantities[productId];
+        
+        if (PRODUCTOS_CON_SALSAS.includes(productId)) {
+            generateSalsaBlocks(productId, productQuantities[productId], productName);
+        }
+    }
 
-  const prods = getProductosSeleccionados();
-  const zona = CONFIG.zonas.find(z => z.id === state.zona);
-  const subtotal = prods.reduce((s, p) => s + p.precio * state.cantidades[p.id], 0);
-  const total = subtotal + (zona ? zona.precio : 0);
+    function addToCart(name, price, containerId, isBeverage) {
+        const qty = productQuantities[containerId] || 1;
 
-  let msg = `🍔 *NUEVO PEDIDO — ${CONFIG.nombre}*\n\n`;
-  msg += `👤 *Cliente:* ${nombre}\n`;
-  msg += `📞 *Teléfono:* ${telefono}\n`;
-  msg += `📍 *Dirección:* ${direccion}\n`;
-  msg += `🚚 *Zona:* ${zona ? zona.nombre : '—'}\n\n`;
-  msg += `*— DETALLE DEL PEDIDO —*\n`;
+        if (isBeverage) {
+            const existingBeverage = cart.find(item => item.name === name);
+            if (existingBeverage) {
+                existingBeverage.qty += qty;
+            } else {
+                cart.push({
+                    name: name,
+                    price: price,
+                    qty: qty,
+                    salsas: [],
+                    isBeverage: true
+                });
+            }
+        } else {
+            const container = document.getElementById(`salsas-container-${containerId}`);
+            for (let i = 1; i <= qty; i++) {
+                let unitSalsas = [];
+                container.querySelectorAll(`input[name="salsas-${containerId}-u${i}"]:checked`).forEach(cb => {
+                    unitSalsas.push(cb.value);
+                });
 
-  prods.forEach(p => {
-    const qty = state.cantidades[p.id];
-    const ops = state.opciones[p.id];
-    msg += `\n• ${qty}x ${p.nombre} — S/ ${(p.precio * qty).toFixed(2)}`;
-    if (ops && ops.length) msg += `\n  _${ops.join(', ')}_`;
-  });
+                cart.push({
+                    name: name,
+                    price: price,
+                    qty: 1, 
+                    salsas: unitSalsas,
+                    isBeverage: false
+                });
+            }
+        }
 
-  msg += `\n\n💰 *Subtotal:* S/ ${subtotal.toFixed(2)}`;
-  msg += `\n🚚 *Delivery:* S/ ${(zona ? zona.precio : 0).toFixed(2)}`;
-  msg += `\n✅ *TOTAL: S/ ${total.toFixed(2)}*`;
-  msg += `\n💳 *Pago:* ${state.pago}`;
-  if (notas) msg += `\n📝 *Notas:* ${notas}`;
+        productQuantities[containerId] = 1;
+        document.getElementById(`${containerId}-qty`).innerText = 1;
+        if (!isBeverage) generateSalsaBlocks(containerId, 1, name);
 
-  const url = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg)}`;
-  window.open(url, '_blank');
-  mostrarToast('✅ Redirigiendo a WhatsApp...');
-});
+        renderCart();
+    }
 
-function mostrarToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 3000);
-}
+    function renderCart() {
+        const container = document.getElementById('cart-items-container');
+        const deliverySelect = document.getElementById('delivery-zone');
+        
+        if (cart.length === 0) {
+            container.innerHTML = '<div class="cart-empty">Aún no has agregado productos</div>';
+            document.getElementById('total-val').innerText = parseFloat(deliverySelect.value).toFixed(2);
+            return;
+        }
+
+        container.innerHTML = '';
+        let subtotal = 0;
+
+        cart.forEach((item, index) => {
+            let itemCost = item.price * item.qty;
+            subtotal += itemCost;
+
+            let detailsHTML = '';
+            if (item.isBeverage) {
+                detailsHTML = `<span class="cart-item-salsas" style="color: var(--text-muted); font-style: italic;">Refrescante?</span>`;
+            } else {
+                let salsasText = item.salsas.length > 0 ? `Salsas: ${item.salsas.join(', ')}` : 'Sin salsas';
+                detailsHTML = `<span class="cart-item-salsas" style="color: var(--accent-gold); font-style: italic;">${salsasText}</span>`;
+            }
+
+            container.innerHTML += `
+                <div class="cart-item-row">
+                    <div>
+                        <strong>${item.qty < 10 ? '0' + item.qty : item.qty} x ${item.name}</strong>
+                        ${detailsHTML}
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        S/ ${itemCost.toFixed(2)}
+                        <span style="color:var(--accent-red); cursor:pointer; font-weight:bold; font-size:1.2rem; padding: 0 5px;" onclick="removeItem(${index})">×</span>
+                    </div>
+                </div>
+            `;
+        });
+
+        let deliveryCost = parseFloat(deliverySelect.value);
+        let selectedZoneName = deliverySelect.options[deliverySelect.selectedIndex].getAttribute('data-name');
+        
+        document.getElementById('summary-deliv-label').innerText = `Delivery (${selectedZoneName})`;
+        document.getElementById('summary-deliv-price').innerText = `S/ ${deliveryCost.toFixed(2)}`;
+        
+        let total = subtotal + deliveryCost;
+        document.getElementById('total-val').innerText = total.toFixed(2);
+    }
+
+    function removeItem(index) {
+        cart.splice(index, 1);
+        renderCart();
+    }
+
+    function selectPayment(element, method) {
+        document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('selected'));
+        element.classList.add('selected');
+        selectedPayment = method;
+
+        const cashBox = document.getElementById('cash-change-box');
+        if (method === "Efectivo") {
+            cashBox.style.display = 'block';
+        } else {
+            cashBox.style.display = 'none';
+            document.getElementById('cash-amount').value = '';
+        }
+    }
+
+    function sendOrder() {
+        const name = document.getElementById('client-name').value.trim();
+        const phone = document.getElementById('client-phone').value.trim();
+        const address = document.getElementById('client-address').value.trim();
+        let notes = document.getElementById('client-notes').value.trim();
+        const deliverySelect = document.getElementById('delivery-zone');
+        const zoneText = deliverySelect.options[deliverySelect.selectedIndex].getAttribute('data-name');
+        const cashAmount = document.getElementById('cash-amount').value.trim();
+
+        if(cart.length === 0) {
+            alert("El resumen del pedido está vacío. Agrega productos primero.");
+            return;
+        }
+        if(!name || !phone || !address) {
+            alert("Por favor, rellena los campos obligatorios de tus datos.");
+            return;
+        }
+
+        if (selectedPayment === "Efectivo") {
+            if (cashAmount) {
+                const totalPedido = parseFloat(document.getElementById('total-val').innerText);
+                if (parseFloat(cashAmount) < totalPedido) {
+                    alert(`El monto de pago (S/ ${cashAmount}) no puede ser menor al total del pedido (S/ ${totalPedido.toFixed(2)})`);
+                    return;
+                }
+                const vuelto = parseFloat(cashAmount) - totalPedido;
+                notes = `[PAGA CON: S/ ${cashAmount} - LLEVAR VUELTO DE: S/ ${vuelto.toFixed(2)}] ${notes ? '\n' + notes : ''}`;
+            } else {
+                notes = `[PAGA CON EFECTIVO - REQUIERE CAMBIO] ${notes ? '\n' + notes : ''}`;
+            }
+        }
+
+        let resumenProductos = "";
+        cart.forEach(item => {
+            resumenProductos += `* ${item.qty < 10 ? '0' + item.qty : item.qty} x ${item.name} (S/ ${(item.price * item.qty).toFixed(2)})\n`;
+            if(!item.isBeverage && item.salsas.length > 0) {
+                resumenProductos += `   └ _Salsas: ${item.salsas.join(', ')}_\n`;
+            }
+        });
+
+        let outputText = `📌 *NUEVO PEDIDO WEB*\n\n👤 *Cliente:* ${name}\n📞 *Teléfono:* ${phone}\n📍 *Dirección:* ${address} (${zoneText})\n${notes ? `📝 *Notas:* ${notes}\n` : ''}\n🛒 *DETALLE:*\n${resumenProductos}\n📦 *Delivery:* S/ ${parseFloat(deliverySelect.value).toFixed(2)}\n💰 *TOTAL:* S/ ${document.getElementById('total-val').innerText}\n💳 *Pago:* ${selectedPayment}`;
+        
+        alert(outputText);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        generateSalsaBlocks('p-h-especial', 1, 'Hamburguesa Especial');
+        generateSalsaBlocks('p-h-royal', 1, 'Hamburguesa Royal');
+        generateSalsaBlocks('p-h-hawaiana', 1, 'Hamburguesa Hawaiana');
+        generateSalsaBlocks('p-s-original', 1, 'Salchipapa Original');
+        generateSalsaBlocks('p-s-especial', 1, 'Salchipapa Especial');
+        generateSalsaBlocks('p-s-achorada', 1, 'Salchipapa Achorada');
+    });
 </script>
+
 </body>
 </html>
