@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Burger Pepe — Pedidos</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --brand: #e8320a;
+    --brand-dark: #b82500;
+    --bg: #111010;
+    --surface: #1c1b1b;
+    --surface2: #252424;
+    --border: #333;
+    --text: #f0ece8;
+    --muted: #888;
+    --radius: 14px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .header {
+    position: relative;
+    height: 220px;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+  }
+  .header-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #1a0800 0%, #3d1200 40%, #1a0800 100%);
+  }
+  .header-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(17,16,16,0.95) 0%, transparent 60%);
+  }
+  .header-pattern {
+    position: absolute;
+    inset: 0;
+    opacity: 0.05;
+    background-image: repeating-linear-gradient(45deg, #fff 0, #fff 1px, transparent 0, transparent 50%);
+    background-size: 20px 20px;
+  }
+  .header-content {
+    position: relative;
+    z-index: 1;
+    padding: 0 20px 24px;
+    width: 100%;
+  }
+  .header-logo {
+    width: 80px;
+    height: 80px;
+    background: var(--brand);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 28px;
+    color: white;
+    margin-bottom: 12px;
+    box-shadow: 0 8px 24px rgba(232,50,10,0.4);
+  }
+  .header-name {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 36px;
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+  .header-sub {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  .header-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 12px;
+    color: #8fdf82;
+    margin-top: 8px;
+  }
+  .header-badge::before {
+    content: '';
+    width: 7px; height: 7px;
+    background: #8fdf82;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* MAIN */
+  .main { max-width: 480px; margin: 0 auto; padding: 0 16px 100px; }
+
+  /* SECTION TITLE */
+  .section-title {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: var(--brand);
+    text-transform: uppercase;
+    padding: 28px 0 14px;
+  }
+
+  /* PRODUCT CARD */
+  .product-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 12px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .product-card.has-qty {
+    border-color: var(--brand);
+  }
+  .product-top {
+    display: flex;
+    gap: 14px;
+    padding: 16px;
+  }
+  .product-img {
+    width: 90px;
+    height: 90px;
+    border-radius: 10px;
+    object-fit: cover;
+    background: var(--surface2);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+  }
+  .product-info { flex: 1; }
+  .product-name {
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 1.3;
+  }
+  .product-desc {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+  .product-price {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 22px;
+    color: var(--brand);
+    margin-top: 8px;
+    letter-spacing: 0.5px;
+  }
+  .product-price span {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  /* COUNTER */
+  .counter {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-top: 10px;
+  }
+  .counter-btn {
+    width: 34px; height: 34px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s;
+    border-radius: 8px 0 0 8px;
+    line-height: 1;
+  }
+  .counter-btn:last-child { border-radius: 0 8px 8px 0; }
+  .counter-btn:hover { background: var(--brand); border-color: var(--brand); }
+  .counter-num {
+    width: 40px; height: 34px;
+    background: var(--surface2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 15px;
+  }
+
+  /* OPCIONES */
+  .product-opciones {
+    border-top: 1px solid var(--border);
+    padding: 12px 16px;
+    display: none;
+  }
+  .product-card.has-qty .product-opciones { display: block; }
+  .opciones-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .opcion-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    cursor: pointer;
+  }
+  .opcion-item:last-child { border-bottom: none; }
+  .opcion-label { font-size: 14px; }
+  .opcion-check {
+    width: 22px; height: 22px;
+    border: 2px solid var(--border);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+  }
+  .opcion-item.selected .opcion-check {
+    background: var(--brand);
+    border-color: var(--brand);
+  }
+  .opcion-item.selected .opcion-check::after {
+    content: '✓';
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  /* FORM */
+  .form-group { margin-bottom: 14px; }
+  .form-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 6px;
+  }
+  .form-input {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-input:focus { border-color: var(--brand); }
+  .form-input::placeholder { color: var(--muted); }
+
+  textarea.form-input {
+    resize: none;
+    height: 80px;
+  }
+
+  /* ZONAS */
+  .zonas-grid {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .zona-btn {
+    flex: 1;
+    min-width: 90px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 8px;
+    color: var(--text);
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.15s;
+  }
+  .zona-btn .zona-nombre {
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .zona-btn .zona-precio {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+  .zona-btn.selected {
+    background: rgba(232,50,10,0.12);
+    border-color: var(--brand);
+  }
+  .zona-btn.selected .zona-nombre { color: var(--brand); }
+
+  /* PAGO */
+  .pago-grid {
+    display: flex;
+    gap: 8px;
+  }
+  .pago-btn {
+    flex: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 8px;
+    color: var(--text);
+    cursor: pointer;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.15s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .pago-btn .pago-icon { font-size: 22px; }
+  .pago-btn.selected {
+    background: rgba(232,50,10,0.12);
+    border-color: var(--brand);
+    color: var(--brand);
+  }
+
+  /* RESUMEN */
+  .resumen {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .resumen-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: 14px;
+  }
+  .resumen-row:last-child { border-bottom: none; }
+  .resumen-row.total {
+    font-weight: 700;
+    font-size: 16px;
+    background: rgba(232,50,10,0.08);
+  }
+  .resumen-row.total .resumen-val { color: var(--brand); font-size: 20px; font-family: 'Bebas Neue', cursive; letter-spacing: 0.5px; }
+  .resumen-label { color: var(--muted); }
+  .resumen-val { font-weight: 600; }
+
+  /* BOTÓN CONFIRMAR */
+  .btn-confirmar {
+    width: 100%;
+    background: var(--brand);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    padding: 18px;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 20px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: background 0.2s, transform 0.1s;
+    box-shadow: 0 8px 24px rgba(232,50,10,0.35);
+  }
+  .btn-confirmar:hover { background: var(--brand-dark); }
+  .btn-confirmar:active { transform: scale(0.98); }
+  .btn-confirmar:disabled {
+    background: var(--surface2);
+    color: var(--muted);
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+  .btn-confirmar svg { width: 22px; height: 22px; fill: white; }
+
+  /* EMPTY STATE */
+  .empty-carrito {
+    text-align: center;
+    padding: 24px;
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  /* TOAST */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: #1e3a1e;
+    border: 1px solid #4caf50;
+    color: #8fdf82;
+    padding: 12px 20px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 600;
+    z-index: 999;
+    transition: transform 0.3s ease;
+    white-space: nowrap;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- ======= CONFIGURACIÓN DEL RESTAURANTE ======= -->
+<script>
+const CONFIG = {
+  nombre: "Burger Pepe",
+  slogan: "Las mejores hamburguesas de Miraflores",
+  whatsapp: "51999999999",   // ← número con código de país, sin + ni espacios
+  colores: {
+    brand: "#e8320a"
+  },
+  zonas: [
+    { id: "z1", nombre: "Zona 1 — Cercano",  precio: 3 },
+    { id: "z2", nombre: "Zona 2 — Medio",    precio: 5 },
+    { id: "z3", nombre: "Zona 3 — Lejano",   precio: 8 },
+  ],
+  pagos: ["Yape", "Tarjeta", "Efectivo"],
+  productos: [
+    {
+      id: "p1",
+      nombre: "Hamburguesa Clásica",
+      descripcion: "Pan brioche, carne 180g, lechuga, tomate, cebolla caramelizada",
+      precio: 35,
+      emoji: "🍔",
+      opciones: ["Sin cebolla", "Extra queso (+S/3)", "Sin pepinillo"]
+    },
+    {
+      id: "p2",
+      nombre: "Doble Bacon",
+      descripcion: "Doble carne, bacon crocante, queso cheddar, salsa especial",
+      precio: 49,
+      emoji: "🥓",
+      opciones: ["Término medio", "Bien cocido", "Sin bacon"]
+    },
+    {
+      id: "p3",
+      nombre: "Papas Fritas",
+      descripcion: "Papas cortadas a mano, sal marina, crujientes",
+      precio: 15,
+      emoji: "🍟",
+      opciones: ["Con ketchup", "Con mayonesa", "Con ambas"]
+    },
+    {
+      id: "p4",
+      nombre: "Gaseosa Personal",
+      descripcion: "Coca-Cola, Inca Kola o Sprite — 500ml",
+      precio: 8,
+      emoji: "🥤",
+      opciones: ["Coca-Cola", "Inca Kola", "Sprite"]
+    }
+  ]
+};
+</script>
+<!-- ======= FIN CONFIGURACIÓN ======= -->
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-bg"></div>
+  <div class="header-pattern"></div>
+  <div class="header-content">
+    <div class="header-logo" id="headerLogo">BP</div>
+    <div class="header-name" id="headerNombre"></div>
+    <div class="header-sub" id="headerSlogan"></div>
+    <div class="header-badge">Abierto ahora</div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- PRODUCTOS -->
+  <div class="section-title">🍽 Elige tus productos</div>
+  <div id="productosContainer"></div>
+
+  <!-- DATOS DEL CLIENTE -->
+  <div class="section-title">👤 Tus datos</div>
+  <div class="form-group">
+    <label class="form-label">Nombre completo</label>
+    <input class="form-input" type="text" id="clienteNombre" placeholder="Ej: Juan Pérez">
+  </div>
+  <div class="form-group">
+    <label class="form-label">Teléfono</label>
+    <input class="form-input" type="tel" id="clienteTelefono" placeholder="Ej: 987 654 321">
+  </div>
+  <div class="form-group">
+    <label class="form-label">Dirección de entrega</label>
+    <input class="form-input" type="text" id="clienteDireccion" placeholder="Calle, número, referencia">
+  </div>
+  <div class="form-group">
+    <label class="form-label">Zona de delivery</label>
+    <div class="zonas-grid" id="zonasContainer"></div>
+  </div>
+  <div class="form-group">
+    <label class="form-label">Notas adicionales</label>
+    <textarea class="form-input" id="clienteNotas" placeholder="Ej: tocar el timbre, no picante, etc."></textarea>
+  </div>
+
+  <!-- MÉTODO DE PAGO -->
+  <div class="section-title">💳 Método de pago</div>
+  <div class="pago-grid" id="pagoContainer"></div>
+
+  <!-- RESUMEN -->
+  <div class="section-title">🧾 Resumen del pedido</div>
+  <div class="resumen" id="resumenContainer">
+    <div class="empty-carrito">Aún no has agregado productos</div>
+  </div>
+
+  <!-- BOTÓN -->
+  <button class="btn-confirmar" id="btnConfirmar" disabled>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.553 4.122 1.522 5.855L.057 23.882l6.183-1.622A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.007-1.371l-.36-.214-3.726.977.995-3.634-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
+    Enviar pedido por WhatsApp
+  </button>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// Estado de la app
+const state = {
+  cantidades: {},     // { productoId: numero }
+  opciones: {},       // { productoId: [opcion1, opcion2] }
+  zona: null,
+  pago: null,
+};
+
+// Inicializar
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('headerNombre').textContent = CONFIG.nombre;
+  document.getElementById('headerSlogan').textContent = CONFIG.slogan;
+  document.getElementById('headerLogo').textContent = CONFIG.nombre.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
+
+  renderProductos();
+  renderZonas();
+  renderPagos();
+});
+
+function renderProductos() {
+  const container = document.getElementById('productosContainer');
+  container.innerHTML = CONFIG.productos.map(p => `
+    <div class="product-card" id="card-${p.id}">
+      <div class="product-top">
+        <div class="product-img">${p.emoji}</div>
+        <div class="product-info">
+          <div class="product-name">${p.nombre}</div>
+          <div class="product-desc">${p.descripcion}</div>
+          <div class="product-price"><span>S/</span> ${p.precio.toFixed(2)}</div>
+          <div class="counter">
+            <button class="counter-btn" onclick="cambiarCantidad('${p.id}', -1)">−</button>
+            <div class="counter-num" id="qty-${p.id}">0</div>
+            <button class="counter-btn" onclick="cambiarCantidad('${p.id}', 1)">+</button>
+          </div>
+        </div>
+      </div>
+      ${p.opciones && p.opciones.length ? `
+      <div class="product-opciones" id="opciones-${p.id}">
+        <div class="opciones-title">Personaliza</div>
+        ${p.opciones.map(op => `
+          <div class="opcion-item" id="op-${p.id}-${op.replace(/\s+/g,'-')}" onclick="toggleOpcion('${p.id}','${op}')">
+            <span class="opcion-label">${op}</span>
+            <div class="opcion-check"></div>
+          </div>
+        `).join('')}
+      </div>` : ''}
+    </div>
+  `).join('');
+}
+
+function cambiarCantidad(id, delta) {
+  const actual = state.cantidades[id] || 0;
+  const nueva = Math.max(0, actual + delta);
+  state.cantidades[id] = nueva;
+  document.getElementById('qty-' + id).textContent = nueva;
+  const card = document.getElementById('card-' + id);
+  card.classList.toggle('has-qty', nueva > 0);
+  if (nueva === 0) state.opciones[id] = [];
+  actualizarResumen();
+}
+
+function toggleOpcion(productoId, opcion) {
+  if (!state.opciones[productoId]) state.opciones[productoId] = [];
+  const arr = state.opciones[productoId];
+  const idx = arr.indexOf(opcion);
+  if (idx >= 0) arr.splice(idx, 1);
+  else arr.push(opcion);
+  const elId = 'op-' + productoId + '-' + opcion.replace(/\s+/g, '-');
+  document.getElementById(elId).classList.toggle('selected', arr.includes(opcion));
+}
+
+function renderZonas() {
+  const container = document.getElementById('zonasContainer');
+  container.innerHTML = CONFIG.zonas.map(z => `
+    <div class="zona-btn" id="zona-${z.id}" onclick="seleccionarZona('${z.id}')">
+      <div class="zona-nombre">${z.nombre}</div>
+      <div class="zona-precio">S/ ${z.precio.toFixed(2)}</div>
+    </div>
+  `).join('');
+}
+
+function seleccionarZona(id) {
+  state.zona = id;
+  document.querySelectorAll('.zona-btn').forEach(b => b.classList.remove('selected'));
+  document.getElementById('zona-' + id).classList.add('selected');
+  actualizarResumen();
+}
+
+const pagoIconos = { 'Yape': '💜', 'Tarjeta': '💳', 'Efectivo': '💵' };
+function renderPagos() {
+  const container = document.getElementById('pagoContainer');
+  container.innerHTML = CONFIG.pagos.map(p => `
+    <div class="pago-btn" id="pago-${p}" onclick="seleccionarPago('${p}')">
+      <span class="pago-icon">${pagoIconos[p] || '💰'}</span>
+      ${p}
+    </div>
+  `).join('');
+}
+
+function seleccionarPago(p) {
+  state.pago = p;
+  document.querySelectorAll('.pago-btn').forEach(b => b.classList.remove('selected'));
+  document.getElementById('pago-' + p).classList.add('selected');
+  actualizarResumen();
+}
+
+function getProductosSeleccionados() {
+  return CONFIG.productos.filter(p => (state.cantidades[p.id] || 0) > 0);
+}
+
+function actualizarResumen() {
+  const prods = getProductosSeleccionados();
+  const container = document.getElementById('resumenContainer');
+
+  if (prods.length === 0) {
+    container.innerHTML = '<div class="empty-carrito">Aún no has agregado productos</div>';
+    document.getElementById('btnConfirmar').disabled = true;
+    return;
+  }
+
+  const zona = CONFIG.zonas.find(z => z.id === state.zona);
+  const delivery = zona ? zona.precio : 0;
+  const subtotal = prods.reduce((s, p) => s + p.precio * state.cantidades[p.id], 0);
+  const total = subtotal + delivery;
+
+  let rows = prods.map(p => {
+    const qty = state.cantidades[p.id];
+    const ops = state.opciones[p.id];
+    return `
+      <div class="resumen-row">
+        <span class="resumen-label">${qty}x ${p.nombre}${ops && ops.length ? '<br><small style="color:#666">' + ops.join(', ') + '</small>' : ''}</span>
+        <span class="resumen-val">S/ ${(p.precio * qty).toFixed(2)}</span>
+      </div>
+    `;
+  }).join('');
+
+  rows += `<div class="resumen-row"><span class="resumen-label">Delivery ${zona ? '— ' + zona.nombre : ''}</span><span class="resumen-val">S/ ${delivery.toFixed(2)}</span></div>`;
+  rows += `<div class="resumen-row total"><span>TOTAL</span><span class="resumen-val">S/ ${total.toFixed(2)}</span></div>`;
+
+  container.innerHTML = rows;
+
+  const listo = prods.length > 0 && state.zona && state.pago;
+  document.getElementById('btnConfirmar').disabled = !listo;
+}
+
+document.getElementById('btnConfirmar').addEventListener('click', () => {
+  const nombre = document.getElementById('clienteNombre').value.trim();
+  const telefono = document.getElementById('clienteTelefono').value.trim();
+  const direccion = document.getElementById('clienteDireccion').value.trim();
+  const notas = document.getElementById('clienteNotas').value.trim();
+
+  if (!nombre || !telefono || !direccion) {
+    mostrarToast('⚠️ Completa tu nombre, teléfono y dirección');
+    return;
+  }
+
+  const prods = getProductosSeleccionados();
+  const zona = CONFIG.zonas.find(z => z.id === state.zona);
+  const subtotal = prods.reduce((s, p) => s + p.precio * state.cantidades[p.id], 0);
+  const total = subtotal + (zona ? zona.precio : 0);
+
+  let msg = `🍔 *NUEVO PEDIDO — ${CONFIG.nombre}*\n\n`;
+  msg += `👤 *Cliente:* ${nombre}\n`;
+  msg += `📞 *Teléfono:* ${telefono}\n`;
+  msg += `📍 *Dirección:* ${direccion}\n`;
+  msg += `🚚 *Zona:* ${zona ? zona.nombre : '—'}\n\n`;
+  msg += `*— DETALLE DEL PEDIDO —*\n`;
+
+  prods.forEach(p => {
+    const qty = state.cantidades[p.id];
+    const ops = state.opciones[p.id];
+    msg += `\n• ${qty}x ${p.nombre} — S/ ${(p.precio * qty).toFixed(2)}`;
+    if (ops && ops.length) msg += `\n  _${ops.join(', ')}_`;
+  });
+
+  msg += `\n\n💰 *Subtotal:* S/ ${subtotal.toFixed(2)}`;
+  msg += `\n🚚 *Delivery:* S/ ${(zona ? zona.precio : 0).toFixed(2)}`;
+  msg += `\n✅ *TOTAL: S/ ${total.toFixed(2)}*`;
+  msg += `\n💳 *Pago:* ${state.pago}`;
+  if (notas) msg += `\n📝 *Notas:* ${notas}`;
+
+  const url = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg)}`;
+  window.open(url, '_blank');
+  mostrarToast('✅ Redirigiendo a WhatsApp...');
+});
+
+function mostrarToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+</script>
+</body>
+</html>
