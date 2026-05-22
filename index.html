@@ -180,8 +180,14 @@
             color: var(--text-main);
         }
 
-        .product-action-row { display: flex; justify-content: space-between; align-items: center; margin-top: 4px; }
+        .product-action-row { display: flex; justify-content: space-between; align-items: center; margin-top: 4px; gap: 8px; }
         
+        .controls-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
         .quantity-control {
             display: flex;
             align-items: center;
@@ -194,6 +200,22 @@
         .qty-btn { background: none; border: none; color: var(--text-main); font-size: 1.1rem; font-weight: bold; cursor: pointer; width: 20px;}
         .qty-val { font-size: 0.9rem; font-weight: bold; min-width: 15px; text-align: center; }
 
+        .btn-trash-clear {
+            background-color: rgba(220, 53, 69, 0.1);
+            border: 1px solid rgba(220, 53, 69, 0.3);
+            color: var(--accent-red);
+            font-size: 0.9rem;
+            padding: 5px 9px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+        .btn-trash-clear:hover { background-color: var(--accent-red); color: white; }
+
+        /* --- BOTÓN DE ESTADO PERSISTENTE --- */
         .btn-add-item {
             background-color: var(--text-main);
             color: var(--bg-dark);
@@ -204,6 +226,13 @@
             font-size: 0.75rem;
             text-transform: uppercase;
             cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .btn-add-item.is-added {
+            background-color: var(--accent-green) !important;
+            border-color: var(--accent-green) !important;
+            color: #ffffff !important;
         }
 
         /* --- FORMULARIOS --- */
@@ -324,12 +353,15 @@
                     </div>
                     <div class="salsas-dynamic-container" id="salsas-container-p-h-especial"></div>
                     <div class="product-action-row">
-                        <div class="quantity-control">
-                            <button class="qty-btn" onclick="changeQty('p-h-especial', -1, 'Hamburguesa Especial')">−</button>
-                            <span class="qty-val" id="p-h-especial-qty">1</span>
-                            <button class="qty-btn" onclick="changeQty('p-h-especial', 1, 'Hamburguesa Especial')">+</button>
+                        <div class="controls-wrapper">
+                            <div class="quantity-control">
+                                <button class="qty-btn" onclick="changeQty('p-h-especial', -1, 'Hamburguesa Especial')">−</button>
+                                <span class="qty-val" id="p-h-especial-qty">1</span>
+                                <button class="qty-btn" onclick="changeQty('p-h-especial', 1, 'Hamburguesa Especial')">+</button>
+                            </div>
+                            <button class="btn-trash-clear" title="Vaciar producto" onclick="clearProductCard('p-h-especial', 'Hamburguesa Especial')">🗑️</button>
                         </div>
-                        <button class="btn-add-item" onclick="addToCart('Hamburguesa Especial', 35.00, 'p-h-especial', false)">Agregar</button>
+                        <button class="btn-add-item" id="btn-p-h-especial" onclick="addToCart('Hamburguesa Especial', 35.00, 'p-h-especial', false)">Agregar</button>
                     </div>
                 </div>
 
@@ -344,12 +376,15 @@
                     </div>
                     <div class="salsas-dynamic-container" id="salsas-container-p-h-royal"></div>
                     <div class="product-action-row">
-                        <div class="quantity-control">
-                            <button class="qty-btn" onclick="changeQty('p-h-royal', -1, 'Hamburguesa Royal')">−</button>
-                            <span class="qty-val" id="p-h-royal-qty">1</span>
-                            <button class="qty-btn" onclick="changeQty('p-h-royal', 1, 'Hamburguesa Royal')">+</button>
+                        <div class="controls-wrapper">
+                            <div class="quantity-control">
+                                <button class="qty-btn" onclick="changeQty('p-h-royal', -1, 'Hamburguesa Royal')">−</button>
+                                <span class="qty-val" id="p-h-royal-qty">1</span>
+                                <button class="qty-btn" onclick="changeQty('p-h-royal', 1, 'Hamburguesa Royal')">+</button>
+                            </div>
+                            <button class="btn-trash-clear" title="Vaciar producto" onclick="clearProductCard('p-h-royal', 'Hamburguesa Royal')">🗑️</button>
                         </div>
-                        <button class="btn-add-item" onclick="addToCart('Hamburguesa Royal', 28.00, 'p-h-royal', false)">Agregar</button>
+                        <button class="btn-add-item" id="btn-p-h-royal" onclick="addToCart('Hamburguesa Royal', 28.00, 'p-h-royal', false)">Agregar</button>
                     </div>
                 </div>
 
@@ -364,12 +399,15 @@
                     </div>
                     <div class="salsas-dynamic-container" id="salsas-container-p-h-hawaiana"></div>
                     <div class="product-action-row">
-                        <div class="quantity-control">
-                            <button class="qty-btn" onclick="changeQty('p-h-hawaiana', -1, 'Hamburguesa Hawaiana')">−</button>
-                            <span class="qty-val" id="p-h-hawaiana-qty">1</span>
-                            <button class="qty-btn" onclick="changeQty('p-h-hawaiana', 1, 'Hamburguesa Hawaiana')">+</button>
+                        <div class="controls-wrapper">
+                            <div class="quantity-control">
+                                <button class="qty-btn" onclick="changeQty('p-h-hawaiana', -1, 'Hamburguesa Hawaiana')">−</button>
+                                <span class="qty-val" id="p-h-hawaiana-qty">1</span>
+                                <button class="qty-btn" onclick="changeQty('p-h-hawaiana', 1, 'Hamburguesa Hawaiana')">+</button>
+                            </div>
+                            <button class="btn-trash-clear" title="Vaciar producto" onclick="clearProductCard('p-h-hawaiana', 'Hamburguesa Hawaiana')">🗑️</button>
                         </div>
-                        <button class="btn-add-item" onclick="addToCart('Hamburguesa Hawaiana', 30.00, 'p-h-hawaiana', false)">Agregar</button>
+                        <button class="btn-add-item" id="btn-p-h-hawaiana" onclick="addToCart('Hamburguesa Hawaiana', 30.00, 'p-h-hawaiana', false)">Agregar</button>
                     </div>
                 </div>
 
@@ -394,12 +432,15 @@
                     </div>
                     <div class="salsas-dynamic-container" id="salsas-container-p-s-original"></div>
                     <div class="product-action-row">
-                        <div class="quantity-control">
-                            <button class="qty-btn" onclick="changeQty('p-s-original', -1, 'Salchipapa Original')">−</button>
-                            <span class="qty-val" id="p-s-original-qty">1</span>
-                            <button class="qty-btn" onclick="changeQty('p-s-original', 1, 'Salchipapa Original')">+</button>
+                        <div class="controls-wrapper">
+                            <div class="quantity-control">
+                                <button class="qty-btn" onclick="changeQty('p-s-original', -1, 'Salchipapa Original')">−</button>
+                                <span class="qty-val" id="p-s-original-qty">1</span>
+                                <button class="qty-btn" onclick="changeQty('p-s-original', 1, 'Salchipapa Original')">+</button>
+                            </div>
+                            <button class="btn-trash-clear" title="Vaciar producto" onclick="clearProductCard('p-s-original', 'Salchipapa Original')">🗑️</button>
                         </div>
-                        <button class="btn-add-item" onclick="addToCart('Salchipapa Original', 18.00, 'p-s-original', false)">Agregar</button>
+                        <button class="btn-add-item" id="btn-p-s-original" onclick="addToCart('Salchipapa Original', 18.00, 'p-s-original', false)">Agregar</button>
                     </div>
                 </div>
 
@@ -414,12 +455,15 @@
                     </div>
                     <div class="salsas-dynamic-container" id="salsas-container-p-s-especial"></div>
                     <div class="product-action-row">
-                        <div class="quantity-control">
-                            <button class="qty-btn" onclick="changeQty('p-s-especial', -1, 'Salchipapa Especial')">−</button>
-                            <span class="qty-val" id="p-s-especial-qty">1</span>
-                            <button class="qty-btn" onclick="changeQty('p-s-especial', 1, 'Salchipapa Especial')">+</button>
+                        <div class="controls-wrapper">
+                            <div class="quantity-control">
+                                <button class="qty-btn" onclick="changeQty('p-s-especial', -1, 'Salchipapa Especial')">−</button>
+                                <span class="qty-val" id="p-s-especial-qty">1</span>
+                                <button class="qty-btn" onclick="changeQty('p-s-especial', 1, 'Salchipapa Especial')">+</button>
+                            </div>
+                            <button class="btn-trash-clear" title="Vaciar producto" onclick="clearProductCard('p-s-especial', 'Salchipapa Especial')">🗑️</button>
                         </div>
-                        <button class="btn-add-item" onclick="addToCart('Salchipapa Especial', 24.00, 'p-s-especial', false)">Agregar</button>
+                        <button class="btn-add-item" id="btn-p-s-especial" onclick="addToCart('Salchipapa Especial', 24.00, 'p-s-especial', false)">Agregar</button>
                     </div>
                 </div>
 
@@ -434,12 +478,15 @@
                     </div>
                     <div class="salsas-dynamic-container" id="salsas-container-p-s-achorada"></div>
                     <div class="product-action-row">
-                        <div class="quantity-control">
-                            <button class="qty-btn" onclick="changeQty('p-s-achorada', -1, 'Salchipapa Achorada')">−</button>
-                            <span class="qty-val" id="p-s-achorada-qty">1</span>
-                            <button class="qty-btn" onclick="changeQty('p-s-achorada', 1, 'Salchipapa Achorada')">+</button>
+                        <div class="controls-wrapper">
+                            <div class="quantity-control">
+                                <button class="qty-btn" onclick="changeQty('p-s-achorada', -1, 'Salchipapa Achorada')">−</button>
+                                <span class="qty-val" id="p-s-achorada-qty">1</span>
+                                <button class="qty-btn" onclick="changeQty('p-s-achorada', 1, 'Salchipapa Achorada')">+</button>
+                            </div>
+                            <button class="btn-trash-clear" title="Vaciar producto" onclick="clearProductCard('p-s-achorada', 'Salchipapa Achorada')">🗑️</button>
                         </div>
-                        <button class="btn-add-item" onclick="addToCart('Salchipapa Achorada', 28.00, 'p-s-achorada', false)">Agregar</button>
+                        <button class="btn-add-item" id="btn-p-s-achorada" onclick="addToCart('Salchipapa Achorada', 28.00, 'p-s-achorada', false)">Agregar</button>
                     </div>
                 </div>
 
@@ -463,12 +510,15 @@
                         </div>
                     </div>
                     <div class="product-action-row">
-                        <div class="quantity-control">
-                            <button class="qty-btn" onclick="changeQty('p-b-coca-500', -1, '')">−</button>
-                            <span class="qty-val" id="p-b-coca-500-qty">1</span>
-                            <button class="qty-btn" onclick="changeQty('p-b-coca-500', 1, '')">+</button>
+                        <div class="controls-wrapper">
+                            <div class="quantity-control">
+                                <button class="qty-btn" onclick="changeQty('p-b-coca-500', -1, '')">−</button>
+                                <span class="qty-val" id="p-b-coca-500-qty">1</span>
+                                <button class="qty-btn" onclick="changeQty('p-b-coca-500', 1, '')">+</button>
+                            </div>
+                            <button class="btn-trash-clear" title="Vaciar producto" onclick="clearProductCard('p-b-coca-500', 'Coca-Cola 500ml')">🗑️</button>
                         </div>
-                        <button class="btn-add-item" onclick="addToCart('Coca-Cola 500ml', 4.50, 'p-b-coca-500', true)">Agregar</button>
+                        <button class="btn-add-item" id="btn-p-b-coca-500" onclick="addToCart('Coca-Cola 500ml', 4.50, 'p-b-coca-500', true)">Agregar</button>
                     </div>
                 </div>
 
@@ -482,12 +532,15 @@
                         </div>
                     </div>
                     <div class="product-action-row">
-                        <div class="quantity-control">
-                            <button class="qty-btn" onclick="changeQty('p-b-inca-500', -1, '')">−</button>
-                            <span class="qty-val" id="p-b-inca-500-qty">1</span>
-                            <button class="qty-btn" onclick="changeQty('p-b-inca-500', 1, '')">+</button>
+                        <div class="controls-wrapper">
+                            <div class="quantity-control">
+                                <button class="qty-btn" onclick="changeQty('p-b-inca-500', -1, '')">−</button>
+                                <span class="qty-val" id="p-b-inca-500-qty">1</span>
+                                <button class="qty-btn" onclick="changeQty('p-b-inca-500', 1, '')">+</button>
+                            </div>
+                            <button class="btn-trash-clear" title="Vaciar producto" onclick="clearProductCard('p-b-inca-500', 'Inca Kola 500ml')">🗑️</button>
                         </div>
-                        <button class="btn-add-item" onclick="addToCart('Inca Kola 500ml', 4.50, 'p-b-inca-500', true)">Agregar</button>
+                        <button class="btn-add-item" id="btn-p-b-inca-500" onclick="addToCart('Inca Kola 500ml', 4.50, 'p-b-inca-500', true)">Agregar</button>
                     </div>
                 </div>
 
@@ -501,12 +554,15 @@
                         </div>
                     </div>
                     <div class="product-action-row">
-                        <div class="quantity-control">
-                            <button class="qty-btn" onclick="changeQty('p-b-coca-15', -1, '')">−</button>
-                            <span class="qty-val" id="p-b-coca-15-qty">1</span>
-                            <button class="qty-btn" onclick="changeQty('p-b-coca-15', 1, '')">+</button>
+                        <div class="controls-wrapper">
+                            <div class="quantity-control">
+                                <button class="qty-btn" onclick="changeQty('p-b-coca-15', -1, '')">−</button>
+                                <span class="qty-val" id="p-b-coca-15-qty">1</span>
+                                <button class="qty-btn" onclick="changeQty('p-b-coca-15', 1, '')">+</button>
+                            </div>
+                            <button class="btn-trash-clear" title="Vaciar producto" onclick="clearProductCard('p-b-coca-15', 'Coca-Cola 1.5L')">🗑️</button>
                         </div>
-                        <button class="btn-add-item" onclick="addToCart('Coca-Cola 1.5L', 9.00, 'p-b-coca-15', true)">Agregar</button>
+                        <button class="btn-add-item" id="btn-p-b-coca-15" onclick="addToCart('Coca-Cola 1.5L', 9.00, 'p-b-coca-15', true)">Agregar</button>
                     </div>
                 </div>
 
@@ -520,12 +576,15 @@
                         </div>
                     </div>
                     <div class="product-action-row">
-                        <div class="quantity-control">
-                            <button class="qty-btn" onclick="changeQty('p-b-inca-15', -1, '')">−</button>
-                            <span class="qty-val" id="p-b-inca-15-qty">1</span>
-                            <button class="qty-btn" onclick="changeQty('p-b-inca-15', 1, '')">+</button>
+                        <div class="controls-wrapper">
+                            <div class="quantity-control">
+                                <button class="qty-btn" onclick="changeQty('p-b-inca-15', -1, '')">−</button>
+                                <span class="qty-val" id="p-b-inca-15-qty">1</span>
+                                <button class="qty-btn" onclick="changeQty('p-b-inca-15', 1, '')">+</button>
+                            </div>
+                            <button class="btn-trash-clear" title="Vaciar producto" onclick="clearProductCard('p-b-inca-15', 'Inca Kola 1.5L')">🗑️</button>
                         </div>
-                        <button class="btn-add-item" onclick="addToCart('Inca Kola 1.5L', 9.00, 'p-b-inca-15', true)">Agregar</button>
+                        <button class="btn-add-item" id="btn-p-b-inca-15" onclick="addToCart('Inca Kola 1.5L', 9.00, 'p-b-inca-15', true)">Agregar</button>
                     </div>
                 </div>
 
@@ -539,12 +598,15 @@
                         </div>
                     </div>
                     <div class="product-action-row">
-                        <div class="quantity-control">
-                            <button class="qty-btn" onclick="changeQty('p-b-chicha-15', -1, '')">−</button>
-                            <span class="qty-val" id="p-b-chicha-15-qty">1</span>
-                            <button class="qty-btn" onclick="changeQty('p-b-chicha-15', 1, '')">+</button>
+                        <div class="controls-wrapper">
+                            <div class="quantity-control">
+                                <button class="qty-btn" onclick="changeQty('p-b-chicha-15', -1, '')">−</button>
+                                <span class="qty-val" id="p-b-chicha-15-qty">1</span>
+                                <button class="qty-btn" onclick="changeQty('p-b-chicha-15', 1, '')">+</button>
+                            </div>
+                            <button class="btn-trash-clear" title="Vaciar producto" onclick="clearProductCard('p-b-chicha-15', 'Chicha Morada 1.5L')">🗑️</button>
                         </div>
-                        <button class="btn-add-item" onclick="addToCart('Chicha Morada 1.5L', 12.00, 'p-b-chicha-15', true)">Agregar</button>
+                        <button class="btn-add-item" id="btn-p-b-chicha-15" onclick="addToCart('Chicha Morada 1.5L', 12.00, 'p-b-chicha-15', true)">Agregar</button>
                     </div>
                 </div>
 
@@ -569,6 +631,10 @@
                 <input type="text" id="client-address" placeholder="Ej. Av. Universitaria 1420">
             </div>
             <div class="input-group">
+                <label>Referencia de ubicación (Opcional)</label>
+                <input type="text" id="client-reference" placeholder="Ej. Al costado de la botica, fachada verde">
+            </div>
+            <div class="input-group">
                 <label>Zona de delivery</label>
                 <select id="delivery-zone" onchange="renderCart()">
                     <option value="3.00" data-name="Zona 1: San Miguel" selected>Zona 1 (San Miguel) - S/ 3.00</option>
@@ -585,7 +651,6 @@
 
     <div class="block-section">
         <div class="block-title">💳 Método de pago</div>
-        . . .
         <div class="payment-grid">
             <div class="payment-option selected" data-method="Yape" onclick="selectPayment(this, 'Yape')">
                 <div class="payment-icon">
@@ -650,6 +715,7 @@
     let cart = [];
     let selectedPayment = "Yape";
     let productQuantities = {};
+    let addedProductsRegistry = {};
 
     const SALSAS_DISPONIBLES = ["Ketchup", "Mayonesa", "Tártara", "Aceituna", "Ají"];
     const PRODUCTOS_CON_SALSAS = ['p-h-especial', 'p-h-royal', 'p-h-hawaiana', 'p-s-original', 'p-s-especial', 'p-s-achorada'];
@@ -658,7 +724,6 @@
         document.getElementById(id).classList.toggle('active');
     }
 
-    // === CONDICIONAL INTELIGENTE IMPLEMENTADA AQUÍ ===
     function generateSalsaBlocks(productId, currentQty, productName) {
         const container = document.getElementById(`salsas-container-${productId}`);
         if(!container) return; 
@@ -670,13 +735,12 @@
                 let isChecked = (salsa === "Ketchup" || salsa === "Mayonesa") ? 'checked' : '';
                 gridHTML += `
                     <label class="salsa-label">
-                        <input type="checkbox" name="salsas-${productId}-u${i}" value="${salsa}" ${isChecked}> 
+                        <input type="checkbox" name="salsas-${productId}-u${i}" value="${salsa}" ${isChecked} onchange="handleLiveCardUpdate('${productId}', '${productName}')"> 
                         ${salsa}
                     </label>
                 `;
             });
 
-            // Condicional: si la cantidad es 1, omitimos el número correlativo de unidad
             let blockTitleText = currentQty === 1 
                 ? `Salsas para ${productName}` 
                 : `Salsas para ${productName} 0${i}`;
@@ -700,34 +764,50 @@
         if (PRODUCTOS_CON_SALSAS.includes(productId)) {
             generateSalsaBlocks(productId, productQuantities[productId], productName);
         }
+        
+        handleLiveCardUpdate(productId, productName);
     }
 
-    function addToCart(name, price, containerId, isBeverage) {
-        const qty = productQuantities[containerId] || 1;
+    function handleLiveCardUpdate(productId, productName) {
+        if (!addedProductsRegistry[productId]) return; 
+
+        let price = 0;
+        if (productId === 'p-h-especial') price = 35.00;
+        else if (productId === 'p-h-royal') price = 28.00;
+        else if (productId === 'p-h-hawaiana') price = 30.00;
+        else if (productId === 'p-s-original') price = 18.00;
+        else if (productId === 'p-s-especial') price = 24.00;
+        else if (productId === 'p-s-achorada') price = 28.00;
+        else if (productId === 'p-b-coca-500' || productId === 'p-b-inca-500') price = 4.50;
+        else if (productId === 'p-b-coca-15' || productId === 'p-b-inca-15') price = 9.00;
+        else if (productId === 'p-b-chicha-15') price = 12.00;
+
+        const isBeverage = productId.startsWith('p-b-');
+
+        cart = cart.filter(item => item.productCardId !== productId);
+        const qty = productQuantities[productId] || 1;
 
         if (isBeverage) {
-            const existingBeverage = cart.find(item => item.name === name);
-            if (existingBeverage) {
-                existingBeverage.qty += qty;
-            } else {
-                cart.push({
-                    name: name,
-                    price: price,
-                    qty: qty,
-                    salsas: [],
-                    isBeverage: true
-                });
-            }
+            cart.push({
+                productCardId: productId,
+                name: productName,
+                price: price,
+                qty: qty,
+                salsas: [],
+                isBeverage: true
+            });
         } else {
-            const container = document.getElementById(`salsas-container-${containerId}`);
+            const container = document.getElementById(`salsas-container-${productId}`);
             for (let i = 1; i <= qty; i++) {
                 let unitSalsas = [];
-                container.querySelectorAll(`input[name="salsas-${containerId}-u${i}"]:checked`).forEach(cb => {
-                    unitSalsas.push(cb.value);
-                });
-
+                if (container) {
+                    container.querySelectorAll(`input[name="salsas-${productId}-u${i}"]:checked`).forEach(cb => {
+                        unitSalsas.push(cb.value);
+                    });
+                }
                 cart.push({
-                    name: name,
+                    productCardId: productId,
+                    name: productName,
                     price: price,
                     qty: 1, 
                     salsas: unitSalsas,
@@ -735,12 +815,38 @@
                 });
             }
         }
+        renderCart();
+    }
 
-        productQuantities[containerId] = 1;
-        document.getElementById(`${containerId}-qty`).innerText = 1;
-        if (!isBeverage) generateSalsaBlocks(containerId, 1, name);
+    function clearProductCard(productId, productName) {
+        cart = cart.filter(item => item.productCardId !== productId);
+        delete addedProductsRegistry[productId];
+
+        const targetButton = document.getElementById(`btn-${productId}`);
+        if (targetButton) {
+            targetButton.innerText = "Agregar";
+            targetButton.classList.remove("is-added");
+        }
+
+        productQuantities[productId] = 1;
+        const qtyElement = document.getElementById(`${productId}-qty`);
+        if (qtyElement) qtyElement.innerText = 1;
+
+        if (PRODUCTOS_CON_SALSAS.includes(productId)) {
+            generateSalsaBlocks(productId, 1, productName);
+        }
 
         renderCart();
+    }
+
+    function addToCart(name, price, containerId, isBeverage) {
+        addedProductsRegistry[containerId] = true; 
+        const targetButton = document.getElementById(`btn-${containerId}`);
+        if (targetButton) {
+            targetButton.innerText = "Agregado ✔";
+            targetButton.classList.add("is-added");
+        }
+        handleLiveCardUpdate(containerId, name);
     }
 
     function renderCart() {
@@ -762,7 +868,7 @@
 
             let detailsHTML = '';
             if (item.isBeverage) {
-                detailsHTML = `<span class="cart-item-salsas" style="color: var(--text-muted); font-style: italic;">Refrescante?</span>`;
+                detailsHTML = `<span class="cart-item-salsas" style="color: var(--text-muted); font-style: italic;">Refrescante 🥤</span>`;
             } else {
                 let salsasText = item.salsas.length > 0 ? `Salsas: ${item.salsas.join(', ')}` : 'Sin salsas';
                 detailsHTML = `<span class="cart-item-salsas" style="color: var(--accent-gold); font-style: italic;">${salsasText}</span>`;
@@ -776,7 +882,7 @@
                     </div>
                     <div style="display: flex; align-items: center; gap: 10px;">
                         S/ ${itemCost.toFixed(2)}
-                        <span style="color:var(--accent-red); cursor:pointer; font-weight:bold; font-size:1.2rem; padding: 0 5px;" onclick="removeItem(${index})">×</span>
+                        <span style="color:var(--accent-red); cursor:pointer; font-weight:bold; font-size:1.2rem; padding: 0 5px;" onclick="removeItemFromSummary(${index}, '${item.productCardId}', '${item.name}')">×</span>
                     </div>
                 </div>
             `;
@@ -792,9 +898,26 @@
         document.getElementById('total-val').innerText = total.toFixed(2);
     }
 
-    function removeItem(index) {
+    function removeItemFromSummary(index, productCardId, name) {
         cart.splice(index, 1);
         renderCart();
+
+        const cardStillActive = cart.some(item => item.productCardId === productCardId);
+        if (!cardStillActive) {
+            delete addedProductsRegistry[productCardId];
+            const btn = document.getElementById(`btn-${productCardId}`);
+            if (btn) {
+                btn.innerText = "Agregar";
+                btn.classList.remove("is-added");
+            }
+            productQuantities[productCardId] = 1;
+            const qtyElement = document.getElementById(`${productCardId}-qty`);
+            if (qtyElement) qtyElement.innerText = 1;
+
+            if (PRODUCTOS_CON_SALSAS.includes(productCardId)) {
+                generateSalsaBlocks(productCardId, 1, name);
+            }
+        }
     }
 
     function selectPayment(element, method) {
@@ -815,6 +938,7 @@
         const name = document.getElementById('client-name').value.trim();
         const phone = document.getElementById('client-phone').value.trim();
         const address = document.getElementById('client-address').value.trim();
+        const reference = document.getElementById('client-reference').value.trim(); // NUEVA CAPTURA
         let notes = document.getElementById('client-notes').value.trim();
         const deliverySelect = document.getElementById('delivery-zone');
         const zoneText = deliverySelect.options[deliverySelect.selectedIndex].getAttribute('data-name');
@@ -824,6 +948,7 @@
             alert("El resumen del pedido está vacío. Agrega productos primero.");
             return;
         }
+        // No añadimos 'reference' a la condición obligatoria para mantenerlo opcional
         if(!name || !phone || !address) {
             alert("Por favor, rellena los campos obligatorios de tus datos.");
             return;
@@ -843,15 +968,27 @@
             }
         }
 
-        let resumenProductos = "";
+        let consolidatedObject = {};
         cart.forEach(item => {
+            let key = item.name + "|" + item.salsas.join(',');
+            if (!consolidatedObject[key]) {
+                consolidatedObject[key] = { name: item.name, qty: 0, price: item.price, salsas: item.salsas, isBeverage: item.isBeverage };
+            }
+            consolidatedObject[key].qty += item.qty;
+        });
+
+        let resumenProductos = "";
+        Object.values(consolidatedObject).forEach(item => {
             resumenProductos += `* ${item.qty < 10 ? '0' + item.qty : item.qty} x ${item.name} (S/ ${(item.price * item.qty).toFixed(2)})\n`;
             if(!item.isBeverage && item.salsas.length > 0) {
                 resumenProductos += `   └ _Salsas: ${item.salsas.join(', ')}_\n`;
             }
         });
 
-        let outputText = `📌 *NUEVO PEDIDO WEB*\n\n👤 *Cliente:* ${name}\n📞 *Teléfono:* ${phone}\n📍 *Dirección:* ${address} (${zoneText})\n${notes ? `📝 *Notas:* ${notes}\n` : ''}\n🛒 *DETALLE:*\n${resumenProductos}\n📦 *Delivery:* S/ ${parseFloat(deliverySelect.value).toFixed(2)}\n💰 *TOTAL:* S/ ${document.getElementById('total-val').innerText}\n💳 *Pago:* ${selectedPayment}`;
+        // INTEGRACIÓN DE REFERENCIA EN LA SALIDA DE TEXTO SI EXISTE
+        let direccionCompleta = reference ? `${address} (${zoneText}) [Ref: ${reference}]` : `${address} (${zoneText})`;
+
+        let outputText = `📌 *NUEVO PEDIDO WEB*\n\n👤 *Cliente:* ${name}\n📞 *Teléfono:* ${phone}\n📍 *Dirección:* ${direccionCompleta}\n${notes ? `📝 *Notas:* ${notes}\n` : ''}\n🛒 *DETALLE:*\n${resumenProductos}\n📦 *Delivery:* S/ ${parseFloat(deliverySelect.value).toFixed(2)}\n💰 *TOTAL:* S/ ${document.getElementById('total-val').innerText}\n💳 *Pago:* ${selectedPayment}`;
         
         alert(outputText);
     }
@@ -863,6 +1000,10 @@
         generateSalsaBlocks('p-s-original', 1, 'Salchipapa Original');
         generateSalsaBlocks('p-s-especial', 1, 'Salchipapa Especial');
         generateSalsaBlocks('p-s-achorada', 1, 'Salchipapa Achorada');
+        
+        ['p-b-coca-500', 'p-b-inca-500', 'p-b-coca-15', 'p-b-inca-15', 'p-b-chicha-15'].forEach(id => {
+            productQuantities[id] = 1;
+        });
     });
 </script>
 
